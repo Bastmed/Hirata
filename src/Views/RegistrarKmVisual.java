@@ -4,16 +4,16 @@
  */
 package Views;
 
-/**
- *
- * @author broma
- */
-public class RegistrarKm extends javax.swing.JFrame {
+import Model.RegistrarKm;
+import Db.RegistrarKmDao;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+public class RegistrarKmVisual extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarKm
      */
-    public RegistrarKm() {
+    public RegistrarKmVisual() {
         initComponents();
     }
 
@@ -29,14 +29,14 @@ public class RegistrarKm extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         lblPatente = new javax.swing.JLabel();
         lblNombreConductor = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblKilometraje = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtPatente = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtNombreConductor = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         txtKilometraje = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -46,7 +46,7 @@ public class RegistrarKm extends javax.swing.JFrame {
 
         lblNombreConductor.setText("Nombre conductor");
 
-        jLabel1.setText("Kilometraje:");
+        lblKilometraje.setText("Kilometraje:");
 
         jScrollPane4.setViewportView(txtPatente);
 
@@ -54,7 +54,12 @@ public class RegistrarKm extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(txtKilometraje);
 
-        jButton1.setText("jButton1");
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,7 +70,7 @@ public class RegistrarKm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNombreConductor)
                     .addComponent(lblPatente)
-                    .addComponent(jLabel1))
+                    .addComponent(lblKilometraje))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -78,10 +83,12 @@ public class RegistrarKm extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)))
                         .addGap(223, 223, 223))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnRegistrar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,15 +103,85 @@ public class RegistrarKm extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(lblKilometraje)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92)
-                .addComponent(jButton1)
+                .addComponent(btnRegistrar)
                 .addContainerGap(206, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+
+
+    String patente = txtPatente.getText();
+    String conductor = txtNombreConductor.getText();
+    String kilometraje = txtKilometraje.getText();
+
+    // Validaciones básicas en la interfaz 
+    if (patente == null || patente.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese la patente del camión.", "Error", JOptionPane.WARNING_MESSAGE);
+        txtPatente.requestFocus();
+        return;
+    }
+    if (conductor == null || conductor.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese el nombre del conductor.", "Error", JOptionPane.WARNING_MESSAGE);
+        txtNombreConductor.requestFocus();
+        return;
+    }
+    if (kilometraje == null || kilometraje.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese el kilometraje.", "Error", JOptionPane.WARNING_MESSAGE);
+        txtKilometraje.requestFocus();
+        return;
+    }
+
+    //(Opcional) comprobar que el kilometraje parezca un número — DAO acepta String, pero es útil avisar
+    try {
+        Integer.parseInt(kilometraje.trim());
+    } catch (NumberFormatException ex) {
+        int opcion = JOptionPane.showConfirmDialog(this,
+            "El kilometraje no parece un número entero. ¿Deseas guardarlo igual?",
+            "Kilometraje no numérico",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (opcion != JOptionPane.YES_OPTION) {
+            txtKilometraje.requestFocus();
+            return;
+        }
+    }
+
+
+    RegistrarKm registro = new RegistrarKm();
+    registro.setPatenteCamion(patente.trim());
+    registro.setNombreConductor(conductor.trim());
+    registro.setKilometraje(kilometraje.trim()); 
+
+    RegistrarKmDao dao = new RegistrarKmDao();
+    try {
+        dao.insertar(registro); 
+        JOptionPane.showMessageDialog(this, "Kilometraje registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+
+        txtPatente.setText("");
+        txtNombreConductor.setText("");
+        txtKilometraje.setText("");
+        txtPatente.requestFocus();
+
+    } catch (SQLException sqle) {
+
+        JOptionPane.showMessageDialog(this, "Error al guardar en la base de datos:\n" + sqle.getMessage(),
+                                      "Error BD", JOptionPane.ERROR_MESSAGE);
+        sqle.printStackTrace();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error inesperado:\n" + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,21 +210,20 @@ public class RegistrarKm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrarKm().setVisible(true);
-            }
-        });
+/* Create and display the form */
+java.awt.EventQueue.invokeLater(new Runnable() {
+    public void run() {
+        new RegistrarKmVisual().setVisible(true);
     }
-
+});
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblKilometraje;
     private javax.swing.JLabel lblNombreConductor;
     private javax.swing.JLabel lblPatente;
     private javax.swing.JTextPane txtKilometraje;
