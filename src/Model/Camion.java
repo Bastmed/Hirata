@@ -14,8 +14,36 @@ public class Camion {
     private String marca;
     private String modelo;
     private int kilometraje;
+    private int anio;
+    private String nombreConductor;
 
     public Camion() {
+    }
+
+    public Camion(int idCamion, String patente, String marca, String modelo, int kilometraje, int anio, String nombreconductor) {
+        this.idCamion = idCamion;
+        this.patente = patente;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.kilometraje = kilometraje;
+        this.anio = anio;
+        this.nombreConductor = nombreconductor;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public String getNombreConductor() {
+        return nombreConductor;
+    }
+
+    public void setNombreConductor(String nombreconductor) {
+        this.nombreConductor = nombreconductor;
     }
 
     public int getIdCamion() {
