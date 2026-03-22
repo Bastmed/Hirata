@@ -8,7 +8,7 @@ package Model;
  *
  * @author broma
  */
-public class Camion {
+public class RegisCamion {
     private int idCamion;
     private String patente;
     private String marca;
@@ -17,10 +17,10 @@ public class Camion {
     private int anio;
     private String nombreConductor;
 
-    public Camion() {
+    public RegisCamion() {
     }
 
-    public Camion(int idCamion, String patente, String marca, String modelo, int kilometraje, int anio, String nombreconductor) {
+    public RegisCamion(int idCamion, String patente, String marca, String modelo, int kilometraje, int anio, String nombreconductor) {
         this.idCamion = idCamion;
         this.patente = patente;
         this.marca = marca;
