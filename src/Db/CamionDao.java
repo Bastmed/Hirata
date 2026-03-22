@@ -99,21 +99,54 @@ public class CamionDao {
         }
     }
 
-    /**
-     * Actualiza patente, marca, modelo y año usando idCamion (clave primaria).
-     * Método simple para permitir que la patente sea editable en la UI.
-     */
+
+ //Actualiza patente, marca, modelo y año usando idCamion 
+
     public void actualizarPorId(int idCamion, RegisCamion c) throws SQLException {
-        String sql = "UPDATE camiones SET patente = ?, marca = ?, modelo = ?, anio = ? WHERE idCamion = ?";
-        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, c.getPatente());
-            ps.setString(2, c.getMarca());
-            ps.setString(3, c.getModelo());
-            ps.setInt(4, c.getAnio());
-            ps.setInt(5, idCamion);
-            int filas = ps.executeUpdate();
-            if (filas == 0) {
-                throw new SQLException("No se encontró camión con idCamion: " + idCamion);
+        try (Connection con = Conexion.conectarDb()) {
+            // 1. Actualizar datos del camión
+            String sqlCamion = "UPDATE camiones SET patente = ?, marca = ?, modelo = ?, anio = ? WHERE idCamion = ?";
+            try (PreparedStatement ps = con.prepareStatement(sqlCamion)) {
+                ps.setString(1, c.getPatente());
+                ps.setString(2, c.getMarca());
+                ps.setString(3, c.getModelo());
+                ps.setInt(4, c.getAnio());
+                ps.setInt(5, idCamion);
+                ps.executeUpdate();
+            }
+
+            // 2. Verificar si existe el conductor
+            int idConductor = 0;
+            String buscarConductor = "SELECT id_conductor FROM conductores WHERE nombre = ?";
+            try (PreparedStatement ps = con.prepareStatement(buscarConductor)) {
+                ps.setString(1, c.getNombreConductor());
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idConductor = rs.getInt("id_conductor");
+                    }
+                }
+            }
+
+            // 3. Insertar conductor si no existe
+            if (idConductor == 0) {
+                String sqlConductor = "INSERT INTO conductores (nombre) VALUES (?)";
+                try (PreparedStatement ps = con.prepareStatement(sqlConductor, Statement.RETURN_GENERATED_KEYS)) {
+                    ps.setString(1, c.getNombreConductor());
+                    ps.executeUpdate();
+                    try (ResultSet keys = ps.getGeneratedKeys()) {
+                        if (keys.next()) {
+                            idConductor = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+
+            // 4. Actualizar asignación (relación camión–conductor)
+            String sqlAsignacion = "UPDATE asignacion SET id_conductor = ? WHERE id_camion = ?";
+            try (PreparedStatement ps = con.prepareStatement(sqlAsignacion)) {
+                ps.setInt(1, idConductor);
+                ps.setInt(2, idCamion);
+                ps.executeUpdate();
             }
         }
     }

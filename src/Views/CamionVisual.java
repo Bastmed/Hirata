@@ -15,7 +15,8 @@ public class CamionVisual extends javax.swing.JFrame {
         configurarEventosTabla();
         cargarTablaKm();
         configurarEventosTablaKm();
-
+        txtNombreConductorKm.setEditable(false);
+        txtPatenteKm.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,13 +52,15 @@ public class CamionVisual extends javax.swing.JFrame {
         JSpaneKm = new javax.swing.JScrollPane();
         JTableKm = new javax.swing.JTable();
         btnRegistrarKm = new javax.swing.JButton();
-        lblKilometrajeKm = new javax.swing.JLabel();
+        lblKilometraje = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         txtKilometrajeKm = new javax.swing.JTextPane();
         jScrollPane14 = new javax.swing.JScrollPane();
         txtNombreConductorKm = new javax.swing.JTextPane();
         jScrollPane15 = new javax.swing.JScrollPane();
         txtPatenteKm = new javax.swing.JTextPane();
+        lblNombreConductorKm = new javax.swing.JLabel();
+        lblPatenteKm = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
@@ -184,8 +187,8 @@ public class CamionVisual extends javax.swing.JFrame {
         });
         jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
 
-        lblKilometrajeKm.setText("Kilometraje:");
-        jLayeredPane3.add(lblKilometrajeKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        lblKilometraje.setText("Kilometraje:");
+        jLayeredPane3.add(lblKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jScrollPane8.setViewportView(txtKilometrajeKm);
 
@@ -198,6 +201,12 @@ public class CamionVisual extends javax.swing.JFrame {
         jScrollPane15.setViewportView(txtPatenteKm);
 
         jLayeredPane3.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 120, -1));
+
+        lblNombreConductorKm.setText("Nombre:");
+        jLayeredPane3.add(lblNombreConductorKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lblPatenteKm.setText("Patente:");
+        jLayeredPane3.add(lblPatenteKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -655,7 +664,9 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableCam;
     private javax.swing.JLayeredPane jpanelRegistroCam;
-    private javax.swing.JLabel lblKilometrajeKm;
+    private javax.swing.JLabel lblKilometraje;
+    private javax.swing.JLabel lblNombreConductorKm;
+    private javax.swing.JLabel lblPatenteKm;
     private javax.swing.JLabel lblanioCam;
     private javax.swing.JLabel lblconductorCam;
     private javax.swing.JLabel lblmarcaCam;
