@@ -11,7 +11,18 @@ public class CamionDao {
     public void insertar(RegisCamion c) throws SQLException {
         Connection con = Conexion.conectarDb();
         try {
-            // Insertar camión 
+            // Verificar si ya existe camión con esa patente
+            String checkCamion = "SELECT idCamion FROM camiones WHERE patente = ?";
+            try (PreparedStatement psCheck = con.prepareStatement(checkCamion)) {
+                psCheck.setString(1, c.getPatente());
+                try (ResultSet rs = psCheck.executeQuery()) {
+                    if (rs.next()) {
+                        throw new SQLException("El camión con patente " + c.getPatente() + " ya está registrado.");
+                    }
+                }
+            }
+
+            // Insertar camión
             String sqlCamion = "INSERT INTO camiones (patente, marca, modelo, anio, kilometraje) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement psCamion = con.prepareStatement(sqlCamion)) {
                 psCamion.setString(1, c.getPatente());
@@ -20,14 +31,12 @@ public class CamionDao {
                 psCamion.setInt(4, c.getAnio());
                 psCamion.setInt(5, c.getKilometraje());
                 psCamion.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("Camión ya existe (insertar): " + e.getMessage());
             }
 
             int idCamion = 0;
             int idConductor = 0;
 
-            // Obtener idCamion por patente
+            // Obtener idCamion recién insertado
             String buscarCamion = "SELECT idCamion FROM camiones WHERE patente = ?";
             try (PreparedStatement psBuscarCamion = con.prepareStatement(buscarCamion)) {
                 psBuscarCamion.setString(1, c.getPatente());
@@ -38,38 +47,46 @@ public class CamionDao {
                 }
             }
 
-            // Insertar conductor si no existe 
-            try {
-                String sqlConductor = "INSERT INTO conductores (nombre) VALUES (?)";
-                try (PreparedStatement psConductor = con.prepareStatement(sqlConductor)) {
-                    psConductor.setString(1, c.getNombreConductor());
-                    psConductor.executeUpdate();
-                }
-            } catch (SQLException e) {
-                System.out.println("Conductor ya existe (insertar): " + e.getMessage());
-            }
-
-            // Obtener id_conductor por nombre
-            String buscarConductor = "SELECT id_conductor FROM conductores WHERE nombre = ?";
-            try (PreparedStatement psBuscarConductor = con.prepareStatement(buscarConductor)) {
-                psBuscarConductor.setString(1, c.getNombreConductor());
-                try (ResultSet rs = psBuscarConductor.executeQuery()) {
+            // Verificar si ya existe conductor con ese nombre
+            String checkConductor = "SELECT id_conductor FROM conductores WHERE nombre = ?";
+            try (PreparedStatement psCheckCon = con.prepareStatement(checkConductor)) {
+                psCheckCon.setString(1, c.getNombreConductor());
+                try (ResultSet rs = psCheckCon.executeQuery()) {
                     if (rs.next()) {
                         idConductor = rs.getInt("id_conductor");
                     }
                 }
             }
 
-            // Insertar asignación 
-            try {
-                String sqlAsignacion = "INSERT INTO asignacion (id_camion, id_conductor) VALUES (?, ?)";
-                try (PreparedStatement psAsignacion = con.prepareStatement(sqlAsignacion)) {
-                    psAsignacion.setInt(1, idCamion);
-                    psAsignacion.setInt(2, idConductor);
-                    psAsignacion.executeUpdate();
+            // Insertar conductor si no existe
+            if (idConductor == 0) {
+                String sqlConductor = "INSERT INTO conductores (nombre) VALUES (?)";
+                try (PreparedStatement psConductor = con.prepareStatement(sqlConductor, Statement.RETURN_GENERATED_KEYS)) {
+                    psConductor.setString(1, c.getNombreConductor());
+                    psConductor.executeUpdate();
+                    try (ResultSet keys = psConductor.getGeneratedKeys()) {
+                        if (keys.next()) {
+                            idConductor = keys.getInt(1);
+                        }
+                    }
                 }
-            } catch (SQLException e) {
-                System.out.println("Asignación ya existe (insertar asignacion): " + e.getMessage());
+            }
+
+            // Insertar asignación (si no existe)
+            String checkAsignacion = "SELECT 1 FROM asignacion WHERE id_camion = ? AND id_conductor = ?";
+            try (PreparedStatement psCheckAsig = con.prepareStatement(checkAsignacion)) {
+                psCheckAsig.setInt(1, idCamion);
+                psCheckAsig.setInt(2, idConductor);
+                try (ResultSet rs = psCheckAsig.executeQuery()) {
+                    if (!rs.next()) {
+                        String sqlAsignacion = "INSERT INTO asignacion (id_camion, id_conductor) VALUES (?, ?)";
+                        try (PreparedStatement psAsignacion = con.prepareStatement(sqlAsignacion)) {
+                            psAsignacion.setInt(1, idCamion);
+                            psAsignacion.setInt(2, idConductor);
+                            psAsignacion.executeUpdate();
+                        }
+                    }
+                }
             }
 
         } finally {

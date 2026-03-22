@@ -58,6 +58,9 @@ public class CamionVisual extends javax.swing.JFrame {
         txtNombreConductorKm = new javax.swing.JTextPane();
         jScrollPane15 = new javax.swing.JScrollPane();
         txtPatenteKm = new javax.swing.JTextPane();
+        jPanel3 = new javax.swing.JPanel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -209,6 +212,24 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Registrar km", jPanel2);
 
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("No sé si debe de tener esto");
+        jLayeredPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 190, 30));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1)
+        );
+
+        jTabbedPane1.addTab("Gestionar Conductores", jPanel3);
+
         jLayeredPane2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,14 +336,12 @@ public class CamionVisual extends javax.swing.JFrame {
 
     private void btnregistrarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCamActionPerformed
 
-        // 1. Leer datos desde los JTextPane
         String conductor = txtConductorCam.getText().trim();
         String patente = txtPatenteCam.getText().trim();
         String marca = txtMarcaCam.getText().trim();
         String modelo = txtModeloCam.getText().trim();
         String anioStr = txtAnioCam.getText().trim();
 
-        // 2. Validaciones básicas
         if (conductor.isEmpty() || patente.isEmpty() || marca.isEmpty() || modelo.isEmpty() || anioStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
@@ -336,7 +355,6 @@ public class CamionVisual extends javax.swing.JFrame {
             return;
         }
 
-        // 3. Crear objeto RegisCamion
         RegisCamion c = new RegisCamion();
         c.setPatente(patente);
         c.setMarca(marca);
@@ -344,10 +362,6 @@ public class CamionVisual extends javax.swing.JFrame {
         c.setAnio(anio);
         c.setNombreConductor(conductor);
 
-        // Depuración
-        System.out.println("Insertar camión: " + c.getPatente() + " " + c.getMarca() + " " + c.getModelo() + " " + c.getAnio() + " " + c.getNombreConductor());
-
-        // 4. Insert CamionDao
         CamionDao dao = new CamionDao();
         try {
             dao.insertar(c);
@@ -356,7 +370,6 @@ public class CamionVisual extends javax.swing.JFrame {
             cargarTablaCamiones();
             cargarTablaKm();
 
-            // 5. Limpiar campos
             txtConductorCam.setText("");
             txtPatenteCam.setText("");
             txtMarcaCam.setText("");
@@ -364,7 +377,8 @@ public class CamionVisual extends javax.swing.JFrame {
             txtAnioCam.setText("");
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al registrar camión:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+            // Mostrar mensaje claro si ya existe
+            JOptionPane.showMessageDialog(this, "No se pudo registrar:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
@@ -520,7 +534,14 @@ public class CamionVisual extends javax.swing.JFrame {
 
         CamionDao dao = new CamionDao();
         try {
-            // Actualiza por idCamion para permitir cambiar la patente sin errores
+            // Validar duplicado de patente (si cambió)
+            RegisCamion existente = dao.buscarPorPatente(patente);
+            if (existente != null && existente.getIdCamion() != idCamionSeleccionado) {
+                JOptionPane.showMessageDialog(this, "Ya existe un camión con la patente " + patente, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Actualizar por idCamion
             dao.actualizarPorId(idCamionSeleccionado, c);
             JOptionPane.showMessageDialog(this, "Camión actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
@@ -535,6 +556,7 @@ public class CamionVisual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar camión:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+
 
     }//GEN-LAST:event_btnactualizarCamActionPerformed
 
@@ -615,10 +637,13 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JButton btnactualizarCam;
     private javax.swing.JButton btneliminarCam;
     private javax.swing.JButton btnregistrarCam;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
