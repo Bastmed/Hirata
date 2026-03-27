@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CamionDao {
 
-    // Inserta camión, conductor y asignación 
+// Inserta camión y asigna conductor existente
     public void insertar(RegisCamion c) throws SQLException {
         Connection con = Conexion.conectarDb();
         try {
@@ -47,7 +47,7 @@ public class CamionDao {
                 }
             }
 
-            // Verificar si ya existe conductor con ese nombre
+            // Buscar conductor por nombre
             String checkConductor = "SELECT id_conductor FROM conductores WHERE nombre = ?";
             try (PreparedStatement psCheckCon = con.prepareStatement(checkConductor)) {
                 psCheckCon.setString(1, c.getNombreConductor());
@@ -58,18 +58,8 @@ public class CamionDao {
                 }
             }
 
-            // Insertar conductor si no existe
             if (idConductor == 0) {
-                String sqlConductor = "INSERT INTO conductores (nombre) VALUES (?)";
-                try (PreparedStatement psConductor = con.prepareStatement(sqlConductor, Statement.RETURN_GENERATED_KEYS)) {
-                    psConductor.setString(1, c.getNombreConductor());
-                    psConductor.executeUpdate();
-                    try (ResultSet keys = psConductor.getGeneratedKeys()) {
-                        if (keys.next()) {
-                            idConductor = keys.getInt(1);
-                        }
-                    }
-                }
+                throw new SQLException("El conductor " + c.getNombreConductor() + " no existe. Regístrelo primero.");
             }
 
             // Insertar asignación (si no existe)
@@ -90,18 +80,13 @@ public class CamionDao {
             }
 
         } finally {
-            try {
-                if (con != null && !con.isClosed()) {
-                    con.close();
-                }
-            } catch (SQLException ignore) {
+            if (con != null && !con.isClosed()) {
+                con.close();
             }
         }
     }
 
-
- //Actualiza patente, marca, modelo y año usando idCamion 
-
+    //Actualiza patente, marca, modelo y año usando idCamion 
     public void actualizarPorId(int idCamion, RegisCamion c) throws SQLException {
         try (Connection con = Conexion.conectarDb()) {
             // 1. Actualizar datos del camión
@@ -123,20 +108,6 @@ public class CamionDao {
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         idConductor = rs.getInt("id_conductor");
-                    }
-                }
-            }
-
-            // 3. Insertar conductor si no existe
-            if (idConductor == 0) {
-                String sqlConductor = "INSERT INTO conductores (nombre) VALUES (?)";
-                try (PreparedStatement ps = con.prepareStatement(sqlConductor, Statement.RETURN_GENERATED_KEYS)) {
-                    ps.setString(1, c.getNombreConductor());
-                    ps.executeUpdate();
-                    try (ResultSet keys = ps.getGeneratedKeys()) {
-                        if (keys.next()) {
-                            idConductor = keys.getInt(1);
-                        }
                     }
                 }
             }

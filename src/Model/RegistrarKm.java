@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author broma
- */
 public class RegistrarKm {
 
     private String patenteCamion;
     private String nombreConductor;
-    private String kilometraje;
+    private int kilometraje;  // ahora es int
 
     public RegistrarKm() {
     }
@@ -33,16 +25,11 @@ public class RegistrarKm {
         this.nombreConductor = nombreConductor;
     }
 
-    public String getKilometraje() {
+    public int getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(String kilometraje) {
+    public void setKilometraje(int kilometraje) {
         this.kilometraje = kilometraje;
     }
-
-    
-  
-    
-
 }
