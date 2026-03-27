@@ -47,6 +47,7 @@ public class CamionVisual extends javax.swing.JFrame {
         lblpatenteCam = new javax.swing.JLabel();
         btnactualizarCam = new javax.swing.JButton();
         btneliminarCam = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         JSpaneKm = new javax.swing.JScrollPane();
@@ -63,7 +64,6 @@ public class CamionVisual extends javax.swing.JFrame {
         lblPatenteKm = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +145,14 @@ public class CamionVisual extends javax.swing.JFrame {
         });
         jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 80, -1));
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 80, -1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -222,9 +230,6 @@ public class CamionVisual extends javax.swing.JFrame {
         jTabbedPane1.addTab("Registrar km", jPanel2);
 
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("No sé si debe de tener esto");
-        jLayeredPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 190, 30));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,6 +344,32 @@ public class CamionVisual extends javax.swing.JFrame {
                     "Error al cargar camiones:\n" + ex.getMessage(),
                     "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+        }
+    }
+
+    private void verificarMantenimiento() {
+        CamionDao dao = new CamionDao();
+        try {
+            java.util.List<RegisCamion> lista = dao.listarTodos();
+            for (RegisCamion c : lista) {
+                int km = c.getKilometraje();
+
+                // Revisamos si el camión ya pasó los 5000 km
+                if (km >= 5000) {
+                    // Calculamos cuántos bloques de 5000 km ha recorrido
+                    int bloques = km / 5000;
+
+                    // Si está en el primer bloque o más, mostramos alerta
+                    JOptionPane.showMessageDialog(this,
+                            "El camión con patente " + c.getPatente()
+                            + " tiene " + km + " km.\nDebe realizar mantenimiento (bloque " + bloques + " de 5000 km).",
+                            "Alerta de Mantenimiento",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al verificar mantenimiento:\n" + ex.getMessage(),
+                    "Error BD", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -498,6 +529,7 @@ public class CamionVisual extends javax.swing.JFrame {
             // REFRESCAR tablas (ambas)
             cargarTablaKm();
             cargarTablaCamiones();
+            verificarMantenimiento();
 
             // dejar el nuevo valor en el campo o limpiar
         } catch (SQLException sqle) {
@@ -602,6 +634,11 @@ public class CamionVisual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btneliminarCamActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+                          
+    System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -643,10 +680,10 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JScrollPane JSpaneKm;
     private javax.swing.JTable JTableKm;
     private javax.swing.JButton btnRegistrarKm;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnactualizarCam;
     private javax.swing.JButton btneliminarCam;
     private javax.swing.JButton btnregistrarCam;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
