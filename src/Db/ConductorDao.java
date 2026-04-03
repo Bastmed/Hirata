@@ -73,15 +73,22 @@ public class ConductorDao {
         return lista;
     }
 
-    // Listar nombre y rut juntos (para tabla de conductores)
     public List<String[]> listarConductoresCompleto() throws SQLException {
         List<String[]> lista = new ArrayList<>();
-        String sql = "SELECT nombre, rut FROM conductores ORDER BY nombre";
+
+        String sql = "SELECT id_conductor, nombre, rut FROM conductores ORDER BY nombre";
+
         try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
-                lista.add(new String[]{rs.getString("nombre"), rs.getString("rut")});
+                lista.add(new String[]{
+                    String.valueOf(rs.getInt("id_conductor")), // fila[0]
+                    rs.getString("nombre"), // fila[1]
+                    rs.getString("rut") // fila[2]
+                });
             }
         }
+
         return lista;
     }
 }

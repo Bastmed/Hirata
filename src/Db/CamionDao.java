@@ -86,9 +86,9 @@ public class CamionDao {
         }
     }
 
-    //Actualiza patente, marca, modelo y año usando idCamion 
     public void actualizarPorId(int idCamion, RegisCamion c) throws SQLException {
         try (Connection con = Conexion.conectarDb()) {
+
             // 1. Actualizar datos del camión
             String sqlCamion = "UPDATE camiones SET patente = ?, marca = ?, modelo = ?, anio = ? WHERE idCamion = ?";
             try (PreparedStatement ps = con.prepareStatement(sqlCamion)) {
@@ -100,8 +100,8 @@ public class CamionDao {
                 ps.executeUpdate();
             }
 
-            // 2. Verificar si existe el conductor
-            int idConductor = 0;
+            // 2. Obtener ID del conductor
+            int idConductor = -1;
             String buscarConductor = "SELECT id_conductor FROM conductores WHERE nombre = ?";
             try (PreparedStatement ps = con.prepareStatement(buscarConductor)) {
                 ps.setString(1, c.getNombreConductor());
@@ -112,12 +112,21 @@ public class CamionDao {
                 }
             }
 
-            // 4. Actualizar asignación (relación camión–conductor)
-            String sqlAsignacion = "UPDATE asignacion SET id_conductor = ? WHERE id_camion = ?";
-            try (PreparedStatement ps = con.prepareStatement(sqlAsignacion)) {
-                ps.setInt(1, idConductor);
-                ps.setInt(2, idCamion);
+            // 3. Eliminar asignación anterior del camión
+            String deleteSql = "DELETE FROM asignacion WHERE id_camion = ?";
+            try (PreparedStatement ps = con.prepareStatement(deleteSql)) {
+                ps.setInt(1, idCamion);
                 ps.executeUpdate();
+            }
+
+            // 4. Insertar nueva asignación SOLO si existe conductor
+            if (idConductor != -1) {
+                String insertSql = "INSERT INTO asignacion (id_camion, id_conductor) VALUES (?, ?)";
+                try (PreparedStatement ps = con.prepareStatement(insertSql)) {
+                    ps.setInt(1, idCamion);
+                    ps.setInt(2, idConductor);
+                    ps.executeUpdate();
+                }
             }
         }
     }
@@ -161,16 +170,20 @@ public class CamionDao {
         }
     }
 
-    // Lista todos los camiones con su conductor (si existe)
     public List<RegisCamion> listarTodos() throws SQLException {
         List<RegisCamion> lista = new ArrayList<>();
-        String sql = "SELECT c.idCamion, c.patente, c.marca, c.modelo, c.anio, c.kilometraje, d.nombre "
+
+        String sql = "SELECT c.idCamion, c.patente, c.marca, c.modelo, c.anio, c.kilometraje, "
+                + "IFNULL(d.nombre, 'Sin conductor') AS nombre "
                 + "FROM camiones c "
                 + "LEFT JOIN asignacion a ON c.idCamion = a.id_camion "
                 + "LEFT JOIN conductores d ON a.id_conductor = d.id_conductor";
+
         try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 RegisCamion rc = new RegisCamion();
+
                 rc.setIdCamion(rs.getInt("idCamion"));
                 rc.setPatente(rs.getString("patente"));
                 rc.setMarca(rs.getString("marca"));
@@ -178,9 +191,11 @@ public class CamionDao {
                 rc.setAnio(rs.getInt("anio"));
                 rc.setKilometraje(rs.getInt("kilometraje"));
                 rc.setNombreConductor(rs.getString("nombre"));
+
                 lista.add(rc);
             }
         }
+
         return lista;
     }
 
@@ -232,9 +247,7 @@ public class CamionDao {
 
         String sql = "SELECT patente FROM camiones";
 
-        try (Connection con = Conexion.conectarDb();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery()) {
+        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 lista.add(rs.getString("patente"));
@@ -248,8 +261,7 @@ public class CamionDao {
 
         String sql = "UPDATE camiones SET kilometraje=? WHERE idCamion=?";
 
-        try (Connection con = Conexion.conectarDb();
-            PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, kilometraje);
             ps.setInt(2, idCamion);

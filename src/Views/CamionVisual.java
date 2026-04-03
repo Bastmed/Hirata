@@ -32,6 +32,15 @@ public class CamionVisual extends javax.swing.JFrame {
 
         // Ajustes de campos
         txtPatenteKm.setEditable(false);
+
+        // Timer que actualiza cada 1 segundo
+        timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                cargarTablaCamiones();
+            }
+        });
+        timer.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +60,7 @@ public class CamionVisual extends javax.swing.JFrame {
         btnSalirConduc = new javax.swing.JButton();
         btnRegistrarConductor = new javax.swing.JButton();
         btnEliminarConductor = new javax.swing.JButton();
+        btnActualizarConductor = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jpanelRegistroCam = new javax.swing.JLayeredPane();
         JSpaneCam = new javax.swing.JScrollPane();
@@ -73,6 +83,9 @@ public class CamionVisual extends javax.swing.JFrame {
         btneliminarCam = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         comboConductores = new javax.swing.JComboBox<>();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        txtGasolina = new javax.swing.JTextPane();
+        lblGasolina = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         JSpaneKm = new javax.swing.JScrollPane();
@@ -114,6 +127,12 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombreConducRegis.setText("Nombre:");
@@ -121,8 +140,8 @@ public class CamionVisual extends javax.swing.JFrame {
 
         lblRutConducRegis.setText("Rut:");
         jLayeredPane1.add(lblRutConducRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
-        jLayeredPane1.add(txtRutConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, -1));
-        jLayeredPane1.add(txtNombreConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 90, -1));
+        jLayeredPane1.add(txtRutConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 90, -1));
+        jLayeredPane1.add(txtNombreConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 90, -1));
 
         JtableConduc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,7 +172,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnRegistrarConductorActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnRegistrarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
+        jLayeredPane1.add(btnRegistrarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         btnEliminarConductor.setText("Eliminar");
         btnEliminarConductor.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +180,15 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnEliminarConductorActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnEliminarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, -1, -1));
+        jLayeredPane1.add(btnEliminarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+
+        btnActualizarConductor.setText("Actualizar");
+        btnActualizarConductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarConductorActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(btnActualizarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -191,7 +218,7 @@ public class CamionVisual extends javax.swing.JFrame {
         ));
         JSpaneCam.setViewportView(jTableCam);
 
-        jpanelRegistroCam.add(JSpaneCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 620, 380));
+        jpanelRegistroCam.add(JSpaneCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 680, 380));
 
         jScrollPane9.setViewportView(txtMarcaCam);
 
@@ -207,7 +234,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnregistrarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         jScrollPane13.setViewportView(txtPatenteCam);
 
@@ -238,7 +265,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnactualizarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
+        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
 
         btneliminarCam.setText("Eliminar");
         btneliminarCam.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +273,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btneliminarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 80, -1));
+        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 80, -1));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +281,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 80, -1));
+        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 80, -1));
 
         comboConductores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboConductores.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +290,13 @@ public class CamionVisual extends javax.swing.JFrame {
             }
         });
         jpanelRegistroCam.add(comboConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 110, -1));
+
+        jScrollPane12.setViewportView(txtGasolina);
+
+        jpanelRegistroCam.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, -1));
+
+        lblGasolina.setText("Gasolina");
+        jpanelRegistroCam.add(lblGasolina, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -538,29 +572,82 @@ public class CamionVisual extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    //Variables
     private String patenteOriginalSeleccionada = null;
     private int idCamionSeleccionado = -1;
-// Cargar tabla de conductores con nombre y RUT
+    private int idConductorSeleccionado = -1;
+    private java.util.Map<Integer, Integer> temperaturaMap = new java.util.HashMap<>();
+    private java.util.Map<Integer, Integer> gasolinaMap = new java.util.HashMap<>();
+    private javax.swing.Timer timer;
+    private java.util.Map<Integer, Boolean> alertaMostrada = new java.util.HashMap<>();
 
+// Cargar tabla de conductores con nombre y RUT
     protected CamionDao crearCamionDao() {
         return new CamionDao();
     }
 
+    private void resetearTodo() {
+
+        //  TABLAS
+        if (jTableCam != null) {
+            jTableCam.clearSelection();
+        }
+        if (JtableConduc != null) {
+            JtableConduc.clearSelection();
+        }
+        if (JTableKm != null) {
+            JTableKm.clearSelection(); // si tienes
+        }
+        //  VARIABLES
+        idCamionSeleccionado = -1;
+        idConductorSeleccionado = -1; // si usas esta
+
+        // CAMPOS CAMIONES
+        txtPatenteCam.setText("");
+        txtMarcaCam.setText("");
+        txtModeloCam.setText("");
+        txtAnioCam.setText("");
+
+        //  CAMPOS CONDUCTORES
+        txtNombreConRegis.setText("");
+        txtRutConRegis.setText("");
+
+        //CAMPOS KM (si tienes)
+        txtKm.setText("");
+
+        // COMBOBOX
+        if (comboConductores != null) {
+            comboConductores.setSelectedIndex(-1);
+        }
+    }
+
     private void cargarTablaConductores() {
         javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
+
+        modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("RUT");
 
         try {
             Db.ConductorDao dao = new Db.ConductorDao();
             java.util.List<String[]> lista = dao.listarConductoresCompleto();
+
             for (String[] fila : lista) {
-                modelo.addRow(new Object[]{fila[0], fila[1]});
+                modelo.addRow(new Object[]{fila[0], fila[1], fila[2]});
             }
+
             JtableConduc.setModel(modelo);
+
+            // ocultar ID
+            JtableConduc.getColumnModel().getColumn(0).setMinWidth(0);
+            JtableConduc.getColumnModel().getColumn(0).setMaxWidth(0);
+            JtableConduc.getColumnModel().getColumn(0).setWidth(0);
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar conductores:\n" + ex.getMessage(),
-                    "Error BD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error al cargar conductores:\n" + ex.getMessage(),
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -633,26 +720,59 @@ public class CamionVisual extends javax.swing.JFrame {
     }
 
     private void cargarTablaCamiones() {
+
+        // GUARDAR FILA SELECCIONADA
+        int filaSeleccionada = jTableCam.getSelectedRow();
+
         CamionDao dao = new CamionDao();
         try {
             java.util.List<Model.RegisCamion> lista = dao.listarTodos();
 
-            // Modelo con columna idCamion oculta en la posición 0
             javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
             };
-            modelo.addColumn("idCamion"); // columna oculta
+
+            modelo.addColumn("idCamion"); // oculta
             modelo.addColumn("Patente");
             modelo.addColumn("Marca");
             modelo.addColumn("Modelo");
             modelo.addColumn("Año");
             modelo.addColumn("Kilometraje");
             modelo.addColumn("Conductor");
+            modelo.addColumn("Motor °C");
+            modelo.addColumn("Gasolina L");
 
             for (Model.RegisCamion c : lista) {
+
+                int id = c.getIdCamion();
+
+                // TEMPERATURA
+                int temp = temperaturaMap.getOrDefault(id, 20);
+                temp += 5;
+                if (temp > 120) {
+                    temp = 120;
+                }
+                temperaturaMap.put(id, temp);
+
+                // GASOLINA
+                int gasolina = gasolinaMap.getOrDefault(id, 100);
+                gasolina -= 5;
+                if (gasolina < 0) {
+                    gasolina = 0;
+                }
+                gasolinaMap.put(id, gasolina);
+
+                // ALERTA
+                if (temp >= 100 && !alertaMostrada.getOrDefault(id, false)) {
+                    JOptionPane.showMessageDialog(this,
+                            "⚠ Temperatura alta en camión " + c.getPatente() + ": " + temp + "°C");
+
+                    alertaMostrada.put(id, true);
+                }
+
                 modelo.addRow(new Object[]{
                     c.getIdCamion(),
                     c.getPatente(),
@@ -660,13 +780,20 @@ public class CamionVisual extends javax.swing.JFrame {
                     c.getModelo(),
                     c.getAnio(),
                     c.getKilometraje(),
-                    c.getNombreConductor()
+                    c.getNombreConductor(),
+                    temp,
+                    gasolina
                 });
             }
 
             jTableCam.setModel(modelo);
 
-            // Ocultar la columna idCamion (índice 0)
+            //  RESTAURAR SELECCIÓN
+            if (filaSeleccionada != -1 && filaSeleccionada < jTableCam.getRowCount()) {
+                jTableCam.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+            }
+
+            // Ocultar ID
             if (jTableCam.getColumnModel().getColumnCount() > 0) {
                 jTableCam.getColumnModel().getColumn(0).setMinWidth(0);
                 jTableCam.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -674,9 +801,9 @@ public class CamionVisual extends javax.swing.JFrame {
             }
 
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(this,
                     "Error al cargar camiones:\n" + ex.getMessage(),
-                    "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
+                    "Error BD", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -715,6 +842,7 @@ public class CamionVisual extends javax.swing.JFrame {
         String marca = txtMarcaCam.getText().trim();
         String modelo = txtModeloCam.getText().trim();
         String anioStr = txtAnioCam.getText().trim();
+        String gasolinaStr = txtGasolina.getText().trim(); 
 
         if (conductor == null || conductor.equals("") || patente.equals("") || marca.equals("") || modelo.equals("") || anioStr.equals("")) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -729,6 +857,14 @@ public class CamionVisual extends javax.swing.JFrame {
             return;
         }
 
+        // GASOLINA (si no ingresa nada será 100 por defecto)
+        int gasolina = 100;
+        try {
+            gasolina = Integer.parseInt(gasolinaStr);
+        } catch (Exception e) {
+            gasolina = 100;
+        }
+
         RegisCamion c = new RegisCamion();
         c.setPatente(patente);
         c.setMarca(marca);
@@ -739,18 +875,33 @@ public class CamionVisual extends javax.swing.JFrame {
         CamionDao dao = new CamionDao();
         try {
             dao.insertar(c);
+
+            // recargar tabla primero para obtener ID
+            cargarTablaCamiones();
+
+            //  Guardar gasolina
+            java.util.List<Model.RegisCamion> lista = dao.listarTodos();
+            for (Model.RegisCamion cam : lista) {
+                if (cam.getPatente().equals(patente)) {
+                    gasolinaMap.put(cam.getIdCamion(), gasolina);
+                    break;
+                }
+            }
+
             JOptionPane.showMessageDialog(this, "Camión registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
             cargarTablaCamiones();
             cargarTablaKm();
+
             txtPatenteCam.setText("");
             txtMarcaCam.setText("");
             txtModeloCam.setText("");
             txtAnioCam.setText("");
+            txtGasolina.setText("");
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo registrar:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnregistrarCamActionPerformed
     private void cargarTablaKm() {
         Db.CamionDao dao = new Db.CamionDao();
@@ -791,8 +942,12 @@ public class CamionVisual extends javax.swing.JFrame {
                 int fila = JtableConduc.getSelectedRow();
 
                 if (fila >= 0) {
-                    String nombre = JtableConduc.getValueAt(fila, 0).toString();
-                    String rut = JtableConduc.getValueAt(fila, 1).toString();
+                    idConductorSeleccionado = Integer.parseInt(
+                            JtableConduc.getValueAt(fila, 0).toString()
+                    );
+
+                    String nombre = JtableConduc.getValueAt(fila, 1).toString();
+                    String rut = JtableConduc.getValueAt(fila, 2).toString();
 
                     txtNombreConRegis.setText(nombre);
                     txtRutConRegis.setText(rut);
@@ -873,6 +1028,7 @@ public class CamionVisual extends javax.swing.JFrame {
         String modelo = txtModeloCam.getText().trim();
         String anioStr = txtAnioCam.getText().trim();
         String conductor = (String) comboConductores.getSelectedItem();
+        String gasolinaStr = txtGasolina.getText().trim();
 
         if (idCamionSeleccionado == -1) {
             JOptionPane.showMessageDialog(this, "Selecciona primero un camión de la tabla.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -892,8 +1048,16 @@ public class CamionVisual extends javax.swing.JFrame {
             return;
         }
 
+        // GASOLINA 
+        int gasolina = 100;
+        try {
+            gasolina = Integer.parseInt(gasolinaStr);
+        } catch (Exception e) {
+            gasolina = 100;
+        }
+
         RegisCamion c = new RegisCamion();
-        c.setPatente(patente); // nueva patente posible
+        c.setPatente(patente);
         c.setMarca(marca);
         c.setModelo(modelo);
         c.setAnio(anio);
@@ -901,18 +1065,22 @@ public class CamionVisual extends javax.swing.JFrame {
 
         CamionDao dao = new CamionDao();
         try {
-            // Validar duplicado de patente (si cambió)
+            // Validar duplicado de patente
             RegisCamion existente = dao.buscarPorPatente(patente);
             if (existente != null && existente.getIdCamion() != idCamionSeleccionado) {
                 JOptionPane.showMessageDialog(this, "Ya existe un camión con la patente " + patente, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Actualizar por idCamion
+            // ACTUALIZAR CAMIÓN
             dao.actualizarPorId(idCamionSeleccionado, c);
+
+            // ACTUALIZAR GASOLINA EN EL MAPA 
+            gasolinaMap.put(idCamionSeleccionado, gasolina);
+
             JOptionPane.showMessageDialog(this, "Camión actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // REFRESCAR ambas tablas
+            // REFRESCAR TABLAS
             cargarTablaCamiones();
             cargarTablaKm();
 
@@ -923,8 +1091,6 @@ public class CamionVisual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar camión:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
-
-
     }//GEN-LAST:event_btnactualizarCamActionPerformed
 
     private void btneliminarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarCamActionPerformed
@@ -955,6 +1121,8 @@ public class CamionVisual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al eliminar camión:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+        temperaturaMap.remove(idCamionSeleccionado);
+        gasolinaMap.remove(idCamionSeleccionado);
 
 
     }//GEN-LAST:event_btneliminarCamActionPerformed
@@ -993,25 +1161,43 @@ public class CamionVisual extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarConductorActionPerformed
 
     private void btnEliminarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarConductorActionPerformed
-        String nombre = txtNombreConRegis.getText().trim();
-
-        if (nombre.equals("")) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del conductor a eliminar.", "Error", JOptionPane.WARNING_MESSAGE);
+        if (idConductorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un conductor de la tabla.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        try (java.sql.Connection con = Db.Conexion.conectarDb(); java.sql.PreparedStatement ps = con.prepareStatement("DELETE FROM conductores WHERE nombre=?")) {
-            ps.setString(1, nombre);
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseas eliminar este conductor?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try (java.sql.Connection con = Db.Conexion.conectarDb(); java.sql.PreparedStatement ps = con.prepareStatement(
+                "DELETE FROM conductores WHERE id_conductor=?"
+        )) {
+
+            ps.setInt(1, idConductorSeleccionado);
+
             int filas = ps.executeUpdate();
+
             if (filas > 0) {
                 JOptionPane.showMessageDialog(this, "Conductor eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                cargarConductoresEnCombo();     // refrescar combo
-                cargarTablaConductores();       // refrescar tabla
+                cargarConductoresEnCombo();
+                cargarTablaConductores();
+                cargarTablaCamiones();
+                cargarTablaKm();
+                cargarDatosDesdeTablaMantenimiento();
+                cargarTablaMantenimiento();
                 txtNombreConRegis.setText("");
                 txtRutConRegis.setText("");
+                idConductorSeleccionado = -1;
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró conductor con ese nombre.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al eliminar:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
         }
@@ -1276,6 +1462,48 @@ public class CamionVisual extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarManActionPerformed
 
+    private void btnActualizarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConductorActionPerformed
+        String nombre = txtNombreConRegis.getText().trim();
+        String rut = txtRutConRegis.getText().trim();
+
+        if (idConductorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un conductor de la tabla.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (nombre.equals("") || rut.equals("")) {
+            JOptionPane.showMessageDialog(this, "Nombre y RUT son obligatorios.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (java.sql.Connection con = Db.Conexion.conectarDb(); java.sql.PreparedStatement ps = con.prepareStatement(
+                "UPDATE conductores SET nombre=?, rut=? WHERE id_conductor=?"
+        )) {
+
+            ps.setString(1, nombre);
+            ps.setString(2, rut);
+            ps.setInt(3, idConductorSeleccionado);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(this, "Conductor actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarConductoresEnCombo();
+                cargarTablaConductores();
+                idConductorSeleccionado = -1;
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar:\n" + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarConductorActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        resetearTodo();
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1290,16 +1518,24 @@ public class CamionVisual extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1318,6 +1554,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JScrollPane JSpaneKm;
     private javax.swing.JTable JTableKm;
     private javax.swing.JTable JtableConduc;
+    private javax.swing.JButton btnActualizarConductor;
     private javax.swing.JButton btnActualizarMan;
     private javax.swing.JButton btnAgregarMan;
     private javax.swing.JButton btnEliminarConductor;
@@ -1349,6 +1586,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1362,6 +1600,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JTable jTableCam;
     private javax.swing.JTable jTableMan;
     private javax.swing.JLayeredPane jpanelRegistroCam;
+    private javax.swing.JLabel lblGasolina;
     private javax.swing.JLabel lblKilometraje;
     private javax.swing.JLabel lblNombreConducRegis;
     private javax.swing.JLabel lblPatenteKm;
@@ -1374,6 +1613,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JTextPane txtAnioCam;
     private javax.swing.JTextPane txtCamion;
     private javax.swing.JTextPane txtDescripcion;
+    private javax.swing.JTextPane txtGasolina;
     private javax.swing.JTextPane txtKilometrajeKm;
     private javax.swing.JTextPane txtKm;
     private javax.swing.JTextPane txtMarcaCam;
