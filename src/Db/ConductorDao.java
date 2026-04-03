@@ -24,7 +24,7 @@ public class ConductorDao {
     }
 
     // Método simple para validar RUT chileno
-    private boolean esRutValido(String rut) {
+    public boolean esRutValido(String rut) {
         rut = rut.replace(".", "").replace("-", "");
         if (rut.length() < 2) {
             return false;
