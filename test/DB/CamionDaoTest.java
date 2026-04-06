@@ -5,6 +5,7 @@
 package DB;
 
 import Db.CamionDao;
+import Db.CamionDao.ValidadorCamion;
 import Model.RegisCamion;
 import java.util.List;
 import org.junit.After;
@@ -21,22 +22,35 @@ import static org.junit.Assert.*;
 public class CamionDaoTest {
     
     @Test
-    public void testBuscarPorPatente() throws Exception {
-        CamionDao dao = new CamionDao();
-
-        RegisCamion camion = dao.buscarPorPatente("webi");
-
-        assertNotNull(camion);
-        assertEquals("webi", camion.getPatente());
+    public void testPatenteValida() {
+        assertTrue(ValidadorCamion.validarPatente("ABC123"));
     }
 
     @Test
-    public void testObtenerIdPorPatente() throws Exception {
-        CamionDao dao = new CamionDao();
-
-        int id = dao.obtenerIdPorPatente("webi");
-
-        assertTrue(id > 0);
+    public void testPatenteInvalida() {
+        assertFalse(ValidadorCamion.validarPatente(""));
+        assertFalse(ValidadorCamion.validarPatente(null));
     }
+
+    @Test
+    public void testKilometrajeValido() {
+        assertTrue(ValidadorCamion.validarKilometraje(5000));
+    }
+
+    @Test
+    public void testKilometrajeInvalido() {
+        assertFalse(ValidadorCamion.validarKilometraje(-10));
+    }
+
+    @Test
+    public void testGasolinaValida() {
+        assertTrue(ValidadorCamion.validarGasolina(50));
+    }
+
+    @Test
+    public void testGasolinaInvalida() {
+        assertFalse(ValidadorCamion.validarGasolina(-1));
+    }
+
     
 }

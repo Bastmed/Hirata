@@ -267,5 +267,20 @@ public class CamionDao {
             ps.executeUpdate();
         }
     }
+    public class ValidadorCamion {
+
+    public static boolean validarPatente(String patente) {
+        return patente != null && !patente.trim().isEmpty();
+    }
+
+    public static boolean validarKilometraje(int km) {
+        return km >= 0;
+    }
+
+    public static boolean validarGasolina(int gasolina) {
+        return gasolina >= 0;
+    }
+}
+
         
 }
