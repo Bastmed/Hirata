@@ -30,14 +30,11 @@ public class CamionVisual extends javax.swing.JFrame {
         configurarEventosTablaKm();
         configurarEventosTablaCamiones();
         configurarEventosTablaConductores();
-        
 
         // Llenar combo de conductores desde BD
         cargarConductoresEnCombo();
 
         // Ajustes de campos
-        
-
         // Timer que actualiza cada 1 segundo
         timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
             @Override
@@ -595,8 +592,6 @@ public class CamionVisual extends javax.swing.JFrame {
     private java.util.Map<Integer, Integer> kilometrajeMap = new java.util.HashMap<>();
     private java.util.Map<Integer, Boolean> alertaGasolinaMostrada = new java.util.HashMap<>();
 
-    
-
 // Cargar tabla de conductores con nombre y RUT
     protected CamionDao crearCamionDao() {
         return new CamionDao();
@@ -802,21 +797,20 @@ public class CamionVisual extends javax.swing.JFrame {
                 } else {
                     alertaMostrada.put(id, false);
                 }
-                
+
                 // alerta solo una vez hasta que se reinicie pero para gasolina
-                boolean yaMostradaB = alertaGasolinaMostrada.getOrDefault(id,false);
-                
-                if (gasolina <= 0){
-                    if (!yaMostradaB){
+                boolean yaMostradaB = alertaGasolinaMostrada.getOrDefault(id, false);
+
+                if (gasolina <= 0) {
+                    if (!yaMostradaB) {
                         JOptionPane.showMessageDialog(this,
                                 "El camion con patente " + c.getPatente() + ": " + "Se quedo sin gasolina");
                         alertaGasolinaMostrada.put(id, true);
-                    
-                    }
-                    else{
+
+                    } else {
                         alertaGasolinaMostrada.put(id, false);
                     }
-                
+
                 }
 
                 modelo.addRow(new Object[]{
@@ -865,20 +859,19 @@ public class CamionVisual extends javax.swing.JFrame {
                 System.out.println("Camión " + c.getPatente() + " tiene " + km + " km");
 
                 if (km >= 5000) {
-                // Inserta alerta simple
+                    // Inserta alerta simple
                     String sql = "INSERT INTO alertas_mantenimiento (id_camion, kilometraje) VALUES (?, ?)";
 
-                    try (Connection con = Conexion.conectarDb();
-                        PreparedStatement ps = con.prepareStatement(sql)) {
+                    try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
                         ps.setInt(1, c.getIdCamion());
                         ps.setInt(2, km);
                         ps.executeUpdate();
                     }
 
-                // Mostrar alerta visual
+                    // Mostrar alerta visual
                     JOptionPane.showMessageDialog(null,
-                            "Camión " + c.getPatente() +
-                            " tiene " + km + " km.\nMantenimiento requerido.",
+                            "Camión " + c.getPatente()
+                            + " tiene " + km + " km.\nMantenimiento requerido.",
                             "Alerta",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -993,7 +986,7 @@ public class CamionVisual extends javax.swing.JFrame {
             modelo.addColumn("Conductor");
 
             for (Model.RegisCamion c : lista) {
-              
+
                 int id = c.getIdCamion();
                 // Obtener kilometraje actual desde el mapa o BD
                 int km = kilometrajeMap.getOrDefault(id, c.getKilometraje());
@@ -1001,10 +994,9 @@ public class CamionVisual extends javax.swing.JFrame {
                 km += 2;
                 kilometrajeMap.put(id, km);
                 // Persistir en BD
-                try (Connection con = Conexion.conectarDb(); 
-                        PreparedStatement ps = con.prepareStatement(  
-                                "UPDATE camiones SET kilometraje = ? "
-                                        + "WHERE idCamion = ?")) {
+                try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(
+                        "UPDATE camiones SET kilometraje = ? "
+                        + "WHERE idCamion = ?")) {
                     ps.setInt(1, km);
                     ps.setInt(2, id);
                     ps.executeUpdate();
@@ -1049,24 +1041,23 @@ public class CamionVisual extends javax.swing.JFrame {
     }
 
     private void configurarEventosTablaKm() {
-    JTableKm.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            int fila = JTableKm.getSelectedRow();
+        JTableKm.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int fila = JTableKm.getSelectedRow();
 
-            if (fila >= 0) {
+                if (fila >= 0) {
 
-                Object patente = JTableKm.getValueAt(fila, 0);
-                Object kilometraje = JTableKm.getValueAt(fila, 4);
-                
+                    Object patente = JTableKm.getValueAt(fila, 0);
+                    Object kilometraje = JTableKm.getValueAt(fila, 4);
 
-                txtPatenteKm.setText(patente != null ? patente.toString() : "");
-                txtKilometrajeKm.setText(kilometraje != null ? kilometraje.toString() : "");
-               
+                    txtPatenteKm.setText(patente != null ? patente.toString() : "");
+                    txtKilometrajeKm.setText(kilometraje != null ? kilometraje.toString() : "");
+
+                }
             }
-        }
-    });
-}
+        });
+    }
 
     private void btnRegistrarKmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarKmActionPerformed
 
@@ -1097,13 +1088,13 @@ public class CamionVisual extends javax.swing.JFrame {
             if (camion != null) {
                 int idCamion = camion.getIdCamion();
 
-            // Reemplazar directamente en BD
+                // Reemplazar directamente en BD
                 camionDao.actualizarKilometraje(patente, nuevoKm);
 
-            // Actualizar mapa en memoria
+                // Actualizar mapa en memoria
                 kilometrajeMap.put(idCamion, nuevoKm);
 
-            // Registrar en historial (solo patente y km)
+                // Registrar en historial (solo patente y km)
                 RegistrarKm registro = new RegistrarKm();
                 registro.setPatenteCamion(patente);
                 registro.setKilometraje(nuevoKm);
@@ -1185,7 +1176,7 @@ public class CamionVisual extends javax.swing.JFrame {
             temperaturaMap.put(idCamionSeleccionado, 20);   // reinicia temperatura
             gasolinaMap.put(idCamionSeleccionado, gasolina); // reinicia gasolina
             alertaMostrada.put(idCamionSeleccionado, false); // permite futuras alertas
-             // permite futuras alertas
+            // permite futuras alertas
 
             JOptionPane.showMessageDialog(this, "Camión actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1630,7 +1621,13 @@ public class CamionVisual extends javax.swing.JFrame {
             txtRutConRegis.setText("");
         }
     }//GEN-LAST:event_btnActualizarConductorActionPerformed
-
+    public boolean necesitaMantenimiento(int km) {
+        if (km >= 5000) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         resetearTodo();
     }//GEN-LAST:event_jTabbedPane1StateChanged
