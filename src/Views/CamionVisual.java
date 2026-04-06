@@ -30,6 +30,7 @@ public class CamionVisual extends javax.swing.JFrame {
         configurarEventosTablaKm();
         configurarEventosTablaCamiones();
         configurarEventosTablaConductores();
+        
 
         // Llenar combo de conductores desde BD
         cargarConductoresEnCombo();
@@ -43,6 +44,7 @@ public class CamionVisual extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 cargarTablaCamiones();
                 cargarTablaKm();
+                cargarTablaMantenimiento();
             }
         });
         timer.start();
@@ -591,6 +593,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.Timer timer;
     private java.util.Map<Integer, Boolean> alertaMostrada = new java.util.HashMap<>();
     private java.util.Map<Integer, Integer> kilometrajeMap = new java.util.HashMap<>();
+    private java.util.Map<Integer, Boolean> alertaGasolinaMostrada = new java.util.HashMap<>();
 
     
 
@@ -798,6 +801,22 @@ public class CamionVisual extends javax.swing.JFrame {
                     }
                 } else {
                     alertaMostrada.put(id, false);
+                }
+                
+                // alerta solo una vez hasta que se reinicie pero para gasolina
+                boolean yaMostradaB = alertaGasolinaMostrada.getOrDefault(id,false);
+                
+                if (gasolina <= 0){
+                    if (!yaMostradaB){
+                        JOptionPane.showMessageDialog(this,
+                                "El camion con patente " + c.getPatente() + ": " + "Se quedo sin gasolina");
+                        alertaGasolinaMostrada.put(id, true);
+                    
+                    }
+                    else{
+                        alertaGasolinaMostrada.put(id, false);
+                    }
+                
                 }
 
                 modelo.addRow(new Object[]{
@@ -1166,6 +1185,7 @@ public class CamionVisual extends javax.swing.JFrame {
             temperaturaMap.put(idCamionSeleccionado, 20);   // reinicia temperatura
             gasolinaMap.put(idCamionSeleccionado, gasolina); // reinicia gasolina
             alertaMostrada.put(idCamionSeleccionado, false); // permite futuras alertas
+             // permite futuras alertas
 
             JOptionPane.showMessageDialog(this, "Camión actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
