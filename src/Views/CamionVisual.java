@@ -1377,6 +1377,15 @@ public class CamionVisual extends javax.swing.JFrame {
 
         try {
 
+            int fila = jTableMan.getSelectedRow();
+
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un mantenimiento de la tabla");
+                return;
+            }
+
+            int idMantenimiento = Integer.parseInt(jTableMan.getValueAt(fila, 0).toString());
+
             String patente = txtPatenteMant.getText().trim();
 
             if (patente.isEmpty()) {
@@ -1394,23 +1403,18 @@ public class CamionVisual extends javax.swing.JFrame {
                 return;
             }
 
-            java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime());
-
-            // Kilometraje
             int kilometraje = Integer.parseInt(txtKmMant.getText());
 
-            //  Objeto mantenimiento
             RegisMantenimiento m = new RegisMantenimiento();
+            m.setIdMantenimiento(idMantenimiento); 
             m.setIdCamion(idCamion);
-            m.setFecha(fechaSql);
+            m.setFecha(fechaUtil);
             m.setTipo(txtTipo.getText().trim());
             m.setDescripcion(txtDescripcion.getText().trim());
 
-            //  DAO
             MantenimientoDao manDao = new MantenimientoDao();
             CamionDao camDao = new CamionDao();
 
-            //  UPDATE DOBLE
             manDao.actualizar(m);
             camDao.actualizarKilometraje(idCamion, kilometraje);
 
