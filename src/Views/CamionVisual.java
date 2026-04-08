@@ -1524,60 +1524,68 @@ public class CamionVisual extends javax.swing.JFrame {
 
     private void btnAgregarManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarManActionPerformed
         // TODO add your handling code here:
-        try {
-            String patente = txtPatenteMant.getText().trim();
+            try {
+                String patente = txtPatenteMant.getText().trim();
+                String tipo = txtTipo.getText().trim();
+                String descripcion = txtDescripcion.getText().trim();
 
-            if (patente.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese una patente");
-                return;
+                if (patente.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una patente");
+                    return;
+                }
+
+                if (tipo.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingrese el tipo de mantenimiento");
+                    return;
+                }
+
+                if (descripcion.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una descripción");
+                    return;
+                }
+
+                CamionDao camionDao = new CamionDao();
+                RegisCamion camion = camionDao.buscarPorPatente(patente);
+
+                if (camion == null) {
+                    JOptionPane.showMessageDialog(this, "Camión no encontrado");
+                    return;
+                }
+
+                if (camion.getKilometraje() < 5000) {
+                    JOptionPane.showMessageDialog(this, "El camión no supera los 5000 km");
+                    return;
+                }
+
+                java.util.Date fechaUtil = jDateMan.getDate();
+                if (fechaUtil == null) {
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha");
+                    return;
+                }
+
+            // Crear objeto
+                RegisMantenimiento m = new RegisMantenimiento();
+                m.setFecha(fechaUtil); // 👈 IMPORTANTE: usa util.Date directamente
+                m.setTipo(tipo);
+                m.setDescripcion(descripcion);
+
+                // Insertar
+                MantenimientoDao dao = new MantenimientoDao();
+                dao.insertarMantenimiento(camion.getIdCamion(), m);
+
+                JOptionPane.showMessageDialog(this, "Mantenimiento agregado correctamente");
+
+                cargarTablaMantenimiento();
+
+                // Limpiar
+                txtTipo.setText("");
+                txtDescripcion.setText("");
+                jDateMan.setDate(null);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error:\n" + e.getMessage());
             }
-
-            CamionDao camionDao = new CamionDao();
-            RegisCamion camion = camionDao.buscarPorPatente(patente);
-
-            if (camion == null) {
-                JOptionPane.showMessageDialog(this, "Camión no encontrado");
-                return;
-            }
-
-            // Validación de kilometraje
-            if (camion.getKilometraje() < 5000) {
-                JOptionPane.showMessageDialog(this, "El camión no supera los 5000 km");
-                return;
-            }
-
-            // Fecha
-            java.util.Date fechaUtil = jDateMan.getDate();
-            if (fechaUtil == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione una fecha");
-                return;
-            }
-
-            java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime());
-
-            //  Crear objeto
-            RegisMantenimiento m = new RegisMantenimiento();
-            m.setFecha(fechaSql);
-            m.setTipo(txtTipo.getText().trim());
-            m.setDescripcion(txtDescripcion.getText().trim());
-
-            // Insertar
-            MantenimientoDao dao = new MantenimientoDao();
-            dao.insertarMantenimiento(camion.getIdCamion(), m);
-
-            JOptionPane.showMessageDialog(this, "Mantenimiento agregado correctamente");
-
-            cargarTablaMantenimiento();
-
-            // 🧹 Limpiar campos
-            txtTipo.setText("");
-            txtDescripcion.setText("");
-            jDateMan.setDate(null);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error:\n" + e.getMessage());
-        }
     }//GEN-LAST:event_btnAgregarManActionPerformed
 
     private void btnActualizarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConductorActionPerformed
