@@ -36,7 +36,7 @@ public class CamionVisual extends javax.swing.JFrame {
 
         // Ajustes de campos
         // Timer que actualiza cada 1 segundo
-        timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
+        timer = new javax.swing.Timer(5000, new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 cargarTablaCamiones();
@@ -127,7 +127,7 @@ public class CamionVisual extends javax.swing.JFrame {
         txtKmMant = new javax.swing.JTextPane();
         jDateMan = new com.toedter.calendar.JDateChooser();
         btnAgregarMan = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnEliminarMant = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -442,7 +442,12 @@ public class CamionVisual extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setText("Eliminar");
+        btnEliminarMant.setText("Eliminar");
+        btnEliminarMant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMantActionPerformed(evt);
+            }
+        });
 
         jLayeredPane4.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -460,7 +465,7 @@ public class CamionVisual extends javax.swing.JFrame {
         jLayeredPane4.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jDateMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(btnAgregarMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(btnEliminarMant, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -502,7 +507,7 @@ public class CamionVisual extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAgregarMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                            .addComponent(btnEliminarMant, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnActualizarMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -545,7 +550,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalirMan)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminarMant))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
@@ -1311,8 +1316,14 @@ public class CamionVisual extends javax.swing.JFrame {
         try {
             java.util.List<Model.RegisMantenimiento> lista = dao.listarMantenimientos();
 
-            javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
+            javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
 
+            modelo.addColumn("ID"); // oculto
             modelo.addColumn("Camión");
             modelo.addColumn("Patente");
             modelo.addColumn("Fecha");
@@ -1322,6 +1333,7 @@ public class CamionVisual extends javax.swing.JFrame {
 
             for (Model.RegisMantenimiento m : lista) {
                 modelo.addRow(new Object[]{
+                    m.getIdMantenimiento(),
                     m.getModelo(),
                     m.getPatente(),
                     m.getFecha(),
@@ -1333,13 +1345,16 @@ public class CamionVisual extends javax.swing.JFrame {
 
             jTableMan.setModel(modelo);
 
+            // ocultar ID
+            jTableMan.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableMan.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableMan.getColumnModel().getColumn(0).setWidth(0);
+
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(this,
                     "Error al cargar mantenimientos:\n" + ex.getMessage(),
                     "Error BD",
-                    javax.swing.JOptionPane.ERROR_MESSAGE);
-
-            ex.printStackTrace();
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1452,11 +1467,8 @@ public class CamionVisual extends javax.swing.JFrame {
         }
     }
     private void jTableManMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableManMouseClicked
-        // TODO add your handling code here:
-        int fila = jTableMan.getSelectedRow();
 
-        btnAgregarMan.setEnabled(true);
-        btnActualizarMan.setEnabled(true);
+        int fila = jTableMan.getSelectedRow();
 
         if (fila == -1) {
             JOptionPane.showMessageDialog(null,
@@ -1467,22 +1479,28 @@ public class CamionVisual extends javax.swing.JFrame {
         }
 
         try {
-            // :pushpin: Obtener datos según tu orden real
-            String camion = jTableMan.getValueAt(fila, 0).toString();
-            String patente = jTableMan.getValueAt(fila, 1).toString();
-            Object fechaObj = jTableMan.getValueAt(fila, 2);
-            String tipo = jTableMan.getValueAt(fila, 3) != null ? jTableMan.getValueAt(fila, 3).toString() : "";
-            String descripcion = jTableMan.getValueAt(fila, 4) != null ? jTableMan.getValueAt(fila, 4).toString() : "";
-            String kilometraje = jTableMan.getValueAt(fila, 5).toString();
+            // Obtener valores de forma SEGURA
+            Object camionObj = jTableMan.getValueAt(fila, 1);
+            Object patenteObj = jTableMan.getValueAt(fila, 2);
+            Object fechaObj = jTableMan.getValueAt(fila, 3);
+            Object tipoObj = jTableMan.getValueAt(fila, 4);
+            Object descripcionObj = jTableMan.getValueAt(fila, 5);
+            Object kmObj = jTableMan.getValueAt(fila, 6);
 
-            // :pushpin: Setear en los campos
+            String camion = (camionObj != null) ? camionObj.toString() : "";
+            String patente = (patenteObj != null) ? patenteObj.toString() : "";
+            String tipo = (tipoObj != null) ? tipoObj.toString() : "";
+            String descripcion = (descripcionObj != null) ? descripcionObj.toString() : "";
+            String kilometraje = (kmObj != null) ? kmObj.toString() : "";
+
+            // Setear campos
             txtCamionMant.setText(camion);
             txtPatenteMant.setText(patente);
             txtTipo.setText(tipo);
             txtDescripcion.setText(descripcion);
-            txtKmMant.setText(kilometraje); // si tienes este campo
+            txtKmMant.setText(kilometraje);
 
-            // :date: Fecha
+            // Fecha segura
             if (fechaObj != null) {
                 if (fechaObj instanceof java.util.Date) {
                     jDateMan.setDate((java.util.Date) fechaObj);
@@ -1502,7 +1520,6 @@ public class CamionVisual extends javax.swing.JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jTableManMouseClicked
 
     private void btnAgregarManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarManActionPerformed
@@ -1632,6 +1649,41 @@ public class CamionVisual extends javax.swing.JFrame {
         resetearTodo();
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
+    private void btnEliminarMantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMantActionPerformed
+
+        int fila = jTableMan.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un mantenimiento");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Eliminar mantenimiento?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            // obtener ID REAL (columna 0 oculta)
+            int idMantenimiento = (int) jTableMan.getValueAt(fila, 0);
+
+            MantenimientoDao dao = new MantenimientoDao();
+            dao.eliminarPorId(idMantenimiento);
+
+            JOptionPane.showMessageDialog(this, "Mantenimiento eliminado");
+
+            cargarTablaMantenimiento();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error:\n" + e.getMessage());
+        }
+
+    }//GEN-LAST:event_btnEliminarMantActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1647,23 +1699,27 @@ public class CamionVisual extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-                }
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class  
 
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class  
 
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1685,8 +1741,8 @@ public class CamionVisual extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizarConductor;
     private javax.swing.JButton btnActualizarMan;
     private javax.swing.JButton btnAgregarMan;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarConductor;
+    private javax.swing.JButton btnEliminarMant;
     private javax.swing.JButton btnRegistrarConductor;
     private javax.swing.JButton btnRegistrarKm;
     private javax.swing.JButton btnSalir;

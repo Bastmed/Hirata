@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class RegisMantenimiento {
 
+    private int idMantenimiento; // clave primaria
     private String modelo;
     private String patente;
     private Date fecha;
@@ -12,12 +13,13 @@ public class RegisMantenimiento {
     private int kilometraje;
     private int idCamion;
 
-    // Constructor vacío (IMPORTANTE para el DAO)
+    // constructor vacío
     public RegisMantenimiento() {
     }
 
-    // Constructor con parámetros (opcional)
-    public RegisMantenimiento(String modelo, String patente, Date fecha, String tipo, String descripcion, int kilometraje, int idCamion) {
+    // constructor completo
+    public RegisMantenimiento(int idMantenimiento, String modelo, String patente, Date fecha, String tipo, String descripcion, int kilometraje, int idCamion) {
+        this.idMantenimiento = idMantenimiento;
         this.modelo = modelo;
         this.patente = patente;
         this.fecha = fecha;
@@ -25,14 +27,21 @@ public class RegisMantenimiento {
         this.descripcion = descripcion;
         this.kilometraje = kilometraje;
         this.idCamion = idCamion;
-        
+    }
+
+    // GET y SET del ID
+    public int getIdMantenimiento() {
+        return idMantenimiento;
+    }
+
+    public void setIdMantenimiento(int idMantenimiento) {
+        this.idMantenimiento = idMantenimiento;
     }
 
     public int getIdCamion() {
         return idCamion;
     }
 
-    // Getters y Setters
     public void setIdCamion(int idCamion) {
         this.idCamion = idCamion;
     }
