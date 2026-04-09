@@ -150,10 +150,9 @@ public class CamionDao {
 
     // Método específico para actualizar solo el kilometraje
     public void actualizarKilometraje(String patente, int nuevoKm) throws SQLException {
-        
+
         String sql = "UPDATE camiones SET kilometraje = ? WHERE patente = ?";
-        try (Connection con = Conexion.conectarDb();
-            PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, nuevoKm);
             ps.setString(2, patente);
             int filas = ps.executeUpdate();
@@ -162,7 +161,6 @@ public class CamionDao {
             }
         }
     }
-
 
     // Elimina camión por patente
     public void eliminar(String patente) throws SQLException {
@@ -174,28 +172,34 @@ public class CamionDao {
     }
 
     public List<RegisCamion> listarTodos() throws SQLException {
-        List<RegisCamion> lista = new ArrayList<>();
-        String sql = "SELECT idCamion, patente, marca, modelo, anio, kilometraje FROM camiones";
 
-        try (Connection con = Conexion.conectarDb();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        List<RegisCamion> lista = new ArrayList<>();
+
+        String sql = "SELECT c.idCamion, c.patente, c.marca, c.modelo, c.anio, c.kilometraje, d.nombre AS nombre_conductor "
+                + "FROM camiones c "
+                + "LEFT JOIN asignacion a ON c.idCamion = a.id_camion "
+                + "LEFT JOIN conductores d ON a.id_conductor = d.id_conductor";
+
+        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+
                 RegisCamion c = new RegisCamion();
+
                 c.setIdCamion(rs.getInt("idCamion"));
                 c.setPatente(rs.getString("patente"));
                 c.setMarca(rs.getString("marca"));
                 c.setModelo(rs.getString("modelo"));
                 c.setAnio(rs.getInt("anio"));
                 c.setKilometraje(rs.getInt("kilometraje"));
+                c.setNombreConductor(rs.getString("nombre_conductor"));
+
                 lista.add(c);
             }
         }
+
         return lista;
     }
-    
-
 
     // Buscar por patente (útil para validar antes de actualizar o mostrar)
     public RegisCamion buscarPorPatente(String patente) throws SQLException {
@@ -267,20 +271,20 @@ public class CamionDao {
             ps.executeUpdate();
         }
     }
+
     public class ValidadorCamion {
 
-    public static boolean validarPatente(String patente) {
-        return patente != null && !patente.trim().isEmpty();
+        public static boolean validarPatente(String patente) {
+            return patente != null && !patente.trim().isEmpty();
+        }
+
+        public static boolean validarKilometraje(int km) {
+            return km >= 0;
+        }
+
+        public static boolean validarGasolina(int gasolina) {
+            return gasolina >= 0;
+        }
     }
 
-    public static boolean validarKilometraje(int km) {
-        return km >= 0;
-    }
-
-    public static boolean validarGasolina(int gasolina) {
-        return gasolina >= 0;
-    }
-}
-
-        
 }
