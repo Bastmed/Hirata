@@ -978,6 +978,9 @@ public class CamionVisual extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnregistrarCamActionPerformed
     private void cargarTablaKm() {
+
+        int filaSeleccionada = JTableKm.getSelectedRow(); // guardar selección
+
         Db.CamionDao dao = new Db.CamionDao();
         try {
             java.util.List<Model.RegisCamion> lista = dao.listarTodos();
@@ -993,19 +996,23 @@ public class CamionVisual extends javax.swing.JFrame {
             for (Model.RegisCamion c : lista) {
 
                 int id = c.getIdCamion();
+
                 // Obtener kilometraje actual desde el mapa o BD
                 int km = kilometrajeMap.getOrDefault(id, c.getKilometraje());
+
                 // Incrementar de 2 en 2
                 km += 2;
                 kilometrajeMap.put(id, km);
+
                 // Persistir en BD
                 try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(
-                        "UPDATE camiones SET kilometraje = ? "
-                        + "WHERE idCamion = ?")) {
+                        "UPDATE camiones SET kilometraje = ? WHERE idCamion = ?")) {
+
                     ps.setInt(1, km);
                     ps.setInt(2, id);
                     ps.executeUpdate();
                 }
+
                 modelo.addRow(new Object[]{
                     c.getPatente(),
                     c.getMarca(),
@@ -1017,6 +1024,12 @@ public class CamionVisual extends javax.swing.JFrame {
             }
 
             JTableKm.setModel(modelo);
+
+            // restaurar selección
+            if (filaSeleccionada >= 0 && filaSeleccionada < JTableKm.getRowCount()) {
+                JTableKm.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+            }
+
         } catch (SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar camiones:\n" + ex.getMessage(),
                     "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -1311,6 +1324,8 @@ public class CamionVisual extends javax.swing.JFrame {
 
     private void cargarTablaMantenimiento() {
 
+        int filaSeleccionada = jTableMan.getSelectedRow(); // guardar selección
+
         Db.MantenimientoDao dao = new Db.MantenimientoDao();
 
         try {
@@ -1344,6 +1359,11 @@ public class CamionVisual extends javax.swing.JFrame {
             }
 
             jTableMan.setModel(modelo);
+
+            // restaurar selección
+            if (filaSeleccionada >= 0 && filaSeleccionada < jTableMan.getRowCount()) {
+                jTableMan.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+            }
 
             // ocultar ID
             jTableMan.getColumnModel().getColumn(0).setMinWidth(0);
@@ -1406,7 +1426,7 @@ public class CamionVisual extends javax.swing.JFrame {
             int kilometraje = Integer.parseInt(txtKmMant.getText());
 
             RegisMantenimiento m = new RegisMantenimiento();
-            m.setIdMantenimiento(idMantenimiento); 
+            m.setIdMantenimiento(idMantenimiento);
             m.setIdCamion(idCamion);
             m.setFecha(fechaUtil);
             m.setTipo(txtTipo.getText().trim());
@@ -1528,68 +1548,68 @@ public class CamionVisual extends javax.swing.JFrame {
 
     private void btnAgregarManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarManActionPerformed
         // TODO add your handling code here:
-            try {
-                String patente = txtPatenteMant.getText().trim();
-                String tipo = txtTipo.getText().trim();
-                String descripcion = txtDescripcion.getText().trim();
+        try {
+            String patente = txtPatenteMant.getText().trim();
+            String tipo = txtTipo.getText().trim();
+            String descripcion = txtDescripcion.getText().trim();
 
-                if (patente.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Ingrese una patente");
-                    return;
-                }
+            if (patente.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese una patente");
+                return;
+            }
 
-                if (tipo.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Ingrese el tipo de mantenimiento");
-                    return;
-                }
+            if (tipo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el tipo de mantenimiento");
+                return;
+            }
 
-                if (descripcion.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Ingrese una descripción");
-                    return;
-                }
+            if (descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese una descripción");
+                return;
+            }
 
-                CamionDao camionDao = new CamionDao();
-                RegisCamion camion = camionDao.buscarPorPatente(patente);
+            CamionDao camionDao = new CamionDao();
+            RegisCamion camion = camionDao.buscarPorPatente(patente);
 
-                if (camion == null) {
-                    JOptionPane.showMessageDialog(this, "Camión no encontrado");
-                    return;
-                }
+            if (camion == null) {
+                JOptionPane.showMessageDialog(this, "Camión no encontrado");
+                return;
+            }
 
-                if (camion.getKilometraje() < 5000) {
-                    JOptionPane.showMessageDialog(this, "El camión no supera los 5000 km");
-                    return;
-                }
+            if (camion.getKilometraje() < 5000) {
+                JOptionPane.showMessageDialog(this, "El camión no supera los 5000 km");
+                return;
+            }
 
-                java.util.Date fechaUtil = jDateMan.getDate();
-                if (fechaUtil == null) {
-                    JOptionPane.showMessageDialog(this, "Seleccione una fecha");
-                    return;
-                }
+            java.util.Date fechaUtil = jDateMan.getDate();
+            if (fechaUtil == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione una fecha");
+                return;
+            }
 
             // Crear objeto
-                RegisMantenimiento m = new RegisMantenimiento();
-                m.setFecha(fechaUtil); // 👈 IMPORTANTE: usa util.Date directamente
-                m.setTipo(tipo);
-                m.setDescripcion(descripcion);
+            RegisMantenimiento m = new RegisMantenimiento();
+            m.setFecha(fechaUtil); // 👈 IMPORTANTE: usa util.Date directamente
+            m.setTipo(tipo);
+            m.setDescripcion(descripcion);
 
-                // Insertar
-                MantenimientoDao dao = new MantenimientoDao();
-                dao.insertarMantenimiento(camion.getIdCamion(), m);
+            // Insertar
+            MantenimientoDao dao = new MantenimientoDao();
+            dao.insertarMantenimiento(camion.getIdCamion(), m);
 
-                JOptionPane.showMessageDialog(this, "Mantenimiento agregado correctamente");
+            JOptionPane.showMessageDialog(this, "Mantenimiento agregado correctamente");
 
-                cargarTablaMantenimiento();
+            cargarTablaMantenimiento();
 
-                // Limpiar
-                txtTipo.setText("");
-                txtDescripcion.setText("");
-                jDateMan.setDate(null);
+            // Limpiar
+            txtTipo.setText("");
+            txtDescripcion.setText("");
+            jDateMan.setDate(null);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error:\n" + e.getMessage());
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error:\n" + e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarManActionPerformed
 
     private void btnActualizarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConductorActionPerformed
@@ -1711,27 +1731,23 @@ public class CamionVisual extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class  
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RegisCamion.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
