@@ -170,7 +170,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirConducActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnSalirConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+        jLayeredPane1.add(btnSalirConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 340, 70, -1));
 
         btnRegistrarConductor.setText("Registrar");
         btnRegistrarConductor.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +240,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnregistrarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         jScrollPane13.setViewportView(txtPatenteCam);
 
@@ -271,7 +271,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnactualizarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
 
         btneliminarCam.setText("Eliminar");
         btneliminarCam.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +279,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btneliminarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 80, -1));
+        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 80, -1));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +287,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 80, -1));
+        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 80, -1));
 
         comboConductores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboConductores.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +340,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnRegistrarKmActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
+        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 90, -1));
 
         lblKilometraje.setText("Kilometraje:");
         jLayeredPane3.add(lblKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
@@ -363,7 +363,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirKmActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(btnSalirKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 80, -1));
+        jLayeredPane3.add(btnSalirKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 90, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1667,44 +1667,65 @@ public class CamionVisual extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEliminarMantActionPerformed
+    private static void aplicarEstilo() {
+
+        // colores del tema
+        java.awt.Color fondoOscuro = new java.awt.Color(28, 43, 74);
+        java.awt.Color fondoPanel = new java.awt.Color(36, 51, 84);
+        java.awt.Color azulAccento = new java.awt.Color(46, 134, 193);
+        java.awt.Color textoBlanco = java.awt.Color.WHITE;
+
+        // fuente principal para todos los componentes
+        java.awt.Font fuenteNormal = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13);
+        java.awt.Font fuenteNegrita = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13);
+
+        // colores generales de Nimbus
+        javax.swing.UIManager.put("nimbusBase", fondoOscuro);
+        javax.swing.UIManager.put("nimbusBlueGrey", fondoPanel);
+        javax.swing.UIManager.put("control", fondoPanel);
+        javax.swing.UIManager.put("text", textoBlanco);
+        javax.swing.UIManager.put("nimbusLightBackground", fondoOscuro);
+        javax.swing.UIManager.put("nimbusFocus", azulAccento);
+        javax.swing.UIManager.put("nimbusSelectedText", textoBlanco);
+        javax.swing.UIManager.put("nimbusSelectionBackground", azulAccento);
+        javax.swing.UIManager.put("info", fondoPanel);
+
+        // fuentes de cada componente
+        javax.swing.UIManager.put("defaultFont", fuenteNormal);
+        javax.swing.UIManager.put("Button.font", fuenteNegrita);
+        javax.swing.UIManager.put("Label.font", fuenteNormal);
+        javax.swing.UIManager.put("TextField.font", fuenteNormal);
+        javax.swing.UIManager.put("TextPane.font", fuenteNormal);
+        javax.swing.UIManager.put("ComboBox.font", fuenteNormal);
+        javax.swing.UIManager.put("Table.font", fuenteNormal);
+        javax.swing.UIManager.put("TableHeader.font", fuenteNegrita);
+        javax.swing.UIManager.put("TabbedPane.font", fuenteNegrita);
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
+            // aplica los colores y fuente personalizados despues de cargar Nimbus
+            aplicarEstilo();
+
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisCamion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisCamion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 CamionVisual ventana = new CamionVisual();
