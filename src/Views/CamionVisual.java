@@ -146,8 +146,8 @@ public class CamionVisual extends javax.swing.JFrame {
 
         lblRutConducRegis.setText("Rut:");
         jLayeredPane1.add(lblRutConducRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
-        jLayeredPane1.add(txtRutConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 90, -1));
-        jLayeredPane1.add(txtNombreConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 90, -1));
+        jLayeredPane1.add(txtRutConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 150, -1));
+        jLayeredPane1.add(txtNombreConRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 150, -1));
 
         JtableConduc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,7 +162,7 @@ public class CamionVisual extends javax.swing.JFrame {
         ));
         JSpaneConduc.setViewportView(JtableConduc);
 
-        jLayeredPane1.add(JSpaneConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 530, 380));
+        jLayeredPane1.add(JSpaneConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 740, 460));
 
         btnSalirConduc.setText("Salir");
         btnSalirConduc.addActionListener(new java.awt.event.ActionListener() {
@@ -224,15 +224,15 @@ public class CamionVisual extends javax.swing.JFrame {
         ));
         JSpaneCam.setViewportView(jTableCam);
 
-        jpanelRegistroCam.add(JSpaneCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 680, 380));
+        jpanelRegistroCam.add(JSpaneCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 740, 470));
 
         jScrollPane9.setViewportView(txtMarcaCam);
 
-        jpanelRegistroCam.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 110, -1));
+        jpanelRegistroCam.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 170, -1));
 
         jScrollPane10.setViewportView(txtModeloCam);
 
-        jpanelRegistroCam.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 110, -1));
+        jpanelRegistroCam.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 170, -1));
 
         btnregistrarCam.setText("Registrar");
         btnregistrarCam.addActionListener(new java.awt.event.ActionListener() {
@@ -244,14 +244,14 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jScrollPane13.setViewportView(txtPatenteCam);
 
-        jpanelRegistroCam.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 110, -1));
+        jpanelRegistroCam.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 170, -1));
 
         lblconductorCam.setText("Conductor");
         jpanelRegistroCam.add(lblconductorCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jScrollPane11.setViewportView(txtAnioCam);
 
-        jpanelRegistroCam.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 110, -1));
+        jpanelRegistroCam.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 170, -1));
 
         lblmarcaCam.setText("Marca:");
         jpanelRegistroCam.add(lblmarcaCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
@@ -295,11 +295,11 @@ public class CamionVisual extends javax.swing.JFrame {
                 comboConductoresActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(comboConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 110, -1));
+        jpanelRegistroCam.add(comboConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 170, -1));
 
         jScrollPane12.setViewportView(txtGasolina);
 
-        jpanelRegistroCam.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, -1));
+        jpanelRegistroCam.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 170, -1));
 
         lblGasolina.setText("Gasolina");
         jpanelRegistroCam.add(lblGasolina, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
@@ -308,15 +308,11 @@ public class CamionVisual extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jpanelRegistroCam, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jpanelRegistroCam, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jpanelRegistroCam, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jpanelRegistroCam, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Registro camiones", jPanel1);
@@ -336,7 +332,7 @@ public class CamionVisual extends javax.swing.JFrame {
         ));
         JSpaneKm.setViewportView(JTableKm);
 
-        jLayeredPane3.add(JSpaneKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 550, 380));
+        jLayeredPane3.add(JSpaneKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 730, 480));
 
         btnRegistrarKm.setText("Actualizar");
         btnRegistrarKm.addActionListener(new java.awt.event.ActionListener() {
@@ -344,18 +340,19 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnRegistrarKmActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
+        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         lblKilometraje.setText("Kilometraje:");
         jLayeredPane3.add(lblKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jScrollPane8.setViewportView(txtKilometrajeKm);
 
-        jLayeredPane3.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 120, -1));
+        jLayeredPane3.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 140, -1));
 
+        txtPatenteKm.setEditable(false);
         jScrollPane15.setViewportView(txtPatenteKm);
 
-        jLayeredPane3.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 120, -1));
+        jLayeredPane3.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 140, -1));
 
         lblPatenteKm.setText("Patente:");
         jLayeredPane3.add(lblPatenteKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
@@ -366,7 +363,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirKmActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(btnSalirKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 80, -1));
+        jLayeredPane3.add(btnSalirKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 80, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -376,28 +373,43 @@ public class CamionVisual extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+            .addComponent(jLayeredPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Registrar km", jPanel2);
 
+        jLayeredPane4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setText("Camion:");
+        jLayeredPane4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 44, -1, -1));
 
         jLabel2.setText("Patente:");
+        jLayeredPane4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 84, -1, -1));
 
         jLabel3.setText("Fecha:");
+        jLayeredPane4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 136, -1, -1));
 
         jLabel4.setText("Tipo:");
+        jLayeredPane4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 198, -1, -1));
 
         jLabel5.setText("Descripcion:");
+        jLayeredPane4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, -1, -1));
 
         jScrollPane1.setViewportView(txtCamionMant);
 
+        jLayeredPane4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 160, -1));
+
         jScrollPane2.setViewportView(txtPatenteMant);
+
+        jLayeredPane4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 160, -1));
 
         jScrollPane4.setViewportView(txtTipo);
 
+        jLayeredPane4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 192, 47));
+
         jScrollPane5.setViewportView(txtDescripcion);
+
+        jLayeredPane4.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 190, 46));
 
         btnSalirMan.setText("Salir");
         btnSalirMan.addActionListener(new java.awt.event.ActionListener() {
@@ -405,6 +417,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnSalirManActionPerformed(evt);
             }
         });
+        jLayeredPane4.add(btnSalirMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 490, 82, -1));
 
         btnActualizarMan.setText("Actualizar");
         btnActualizarMan.addActionListener(new java.awt.event.ActionListener() {
@@ -412,6 +425,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnActualizarManActionPerformed(evt);
             }
         });
+        jLayeredPane4.add(btnActualizarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 425, -1, -1));
 
         jTableMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -431,9 +445,15 @@ public class CamionVisual extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jTableMan);
 
+        jLayeredPane4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 720, 470));
+
         jLabel6.setText("Kilometraje:");
+        jLayeredPane4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 333, -1, -1));
 
         jScrollPane7.setViewportView(txtKmMant);
+
+        jLayeredPane4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 155, -1));
+        jLayeredPane4.add(jDateMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 144, -1));
 
         btnAgregarMan.setText("Agregar");
         btnAgregarMan.addActionListener(new java.awt.event.ActionListener() {
@@ -441,6 +461,7 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnAgregarManActionPerformed(evt);
             }
         });
+        jLayeredPane4.add(btnAgregarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 384, 82, -1));
 
         btnEliminarMant.setText("Eliminar");
         btnEliminarMant.addActionListener(new java.awt.event.ActionListener() {
@@ -448,121 +469,13 @@ public class CamionVisual extends javax.swing.JFrame {
                 btnEliminarMantActionPerformed(evt);
             }
         });
-
-        jLayeredPane4.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnSalirMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnActualizarMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jDateMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnAgregarMan, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnEliminarMant, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
-        jLayeredPane4.setLayout(jLayeredPane4Layout);
-        jLayeredPane4Layout.setHorizontalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(44, 44, 44)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(46, 46, 46)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(26, 26, 26)
-                                .addComponent(jScrollPane7)))
-                        .addGap(73, 73, 73))
-                    .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(55, 55, 55)
-                        .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                                .addComponent(jDateMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(34, 34, 34))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregarMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminarMant, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnActualizarMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalirMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(34, 34, 34)))
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        jLayeredPane4Layout.setVerticalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jDateMan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarMan)
-                    .addComponent(btnAgregarMan))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalirMan)
-                    .addComponent(btnEliminarMant))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
+        jLayeredPane4.add(btnEliminarMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 425, 82, -1));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane4)
+            .addComponent(jLayeredPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,17 +484,21 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Mantenimiento", jPanel4);
 
-        jLayeredPane2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 460));
+        jLayeredPane2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 560));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -597,6 +514,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private java.util.Map<Integer, Integer> kilometrajeMap = new java.util.HashMap<>();
     private java.util.Map<Integer, Boolean> alertaGasolinaMostrada = new java.util.HashMap<>();
     private java.util.Map<Integer, Boolean> alertaMantenimientoMostrada = new java.util.HashMap<>();
+    private java.util.Map<Integer, Integer> bloqueMantenimientoMap = new java.util.HashMap<>();
 
 // Cargar tabla de conductores con nombre y RUT
     protected CamionDao crearCamionDao() {
@@ -605,7 +523,7 @@ public class CamionVisual extends javax.swing.JFrame {
 
     private void resetearTodo() {
 
-        //  TABLAS
+        // limpia seleccion de tablas
         if (jTableCam != null) {
             jTableCam.clearSelection();
         }
@@ -613,26 +531,35 @@ public class CamionVisual extends javax.swing.JFrame {
             JtableConduc.clearSelection();
         }
         if (JTableKm != null) {
-            JTableKm.clearSelection(); // si tienes
+            JTableKm.clearSelection();
         }
-        //  VARIABLES
-        idCamionSeleccionado = -1;
-        idConductorSeleccionado = -1; // si usas esta
+        if (jTableMan != null) {
+            jTableMan.clearSelection();
+        }
 
-        // CAMPOS CAMIONES
+        // reinicia variables de seleccion
+        idCamionSeleccionado = -1;
+        idConductorSeleccionado = -1;
+
+        // limpia campos de camiones
         txtPatenteCam.setText("");
         txtMarcaCam.setText("");
         txtModeloCam.setText("");
         txtAnioCam.setText("");
 
-        //  CAMPOS CONDUCTORES
+        // limpia campos de conductores
         txtNombreConRegis.setText("");
         txtRutConRegis.setText("");
 
-        //CAMPOS KM (si tienes)
+        // limpia campos de mantenimiento
+        txtCamionMant.setText("");
+        txtPatenteMant.setText("");
+        txtTipo.setText("");
+        txtDescripcion.setText("");
         txtKmMant.setText("");
+        jDateMan.setDate(null);
 
-        // COMBOBOX
+        // limpia combobox
         if (comboConductores != null) {
             comboConductores.setSelectedIndex(-1);
         }
@@ -862,33 +789,49 @@ public class CamionVisual extends javax.swing.JFrame {
                 int km = c.getKilometraje();
                 int id = c.getIdCamion();
 
-                // reviso si ya mostre la alerta de mantenimiento para este camion
-                boolean yaMostrada = alertaMantenimientoMostrada.getOrDefault(id, false);
+                // calcula bloque de 5000 km esta el camion
+                int bloqueActual = km / 5000;
 
-                if (km >= 5000) {
-                    if (!yaMostrada) {
-                        // inserto la alerta en la base de datos solo una vez
-                        String sql = "INSERT INTO alertas_mantenimiento (id_camion, kilometraje) VALUES (?, ?)";
+                // se obtiene ultimo bloque registrado para este camion
+                int bloqueAnterior = bloqueMantenimientoMap.getOrDefault(id, 0);
 
-                        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
-                            ps.setInt(1, id);
-                            ps.setInt(2, km);
-                            ps.executeUpdate();
-                        }
+                // si el bloque subio, significa que cruzó un nuevo multiplo de 5000
+                if (bloqueActual > bloqueAnterior) {
 
-                        // muestro la alerta visual solo una vez
-                        JOptionPane.showMessageDialog(null,
-                                "Camion " + c.getPatente()
-                                + " tiene " + km + " km.\nMantenimiento requerido.",
-                                "Alerta",
-                                JOptionPane.WARNING_MESSAGE);
+                    // calcula exactamente cuantos km tiene ese bloque
+                    int kmDelBloque = bloqueActual * 5000;
 
-                        // marco que ya mostre la alerta para no repetirla
-                        alertaMantenimientoMostrada.put(id, true);
+                    // inserta el registro en la tabla mantenimientos
+                    String sql = "INSERT INTO mantenimientos (id_camion, fecha, tipo, descripcion) VALUES (?, ?, ?, ?)";
+
+                    try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
+                        ps.setInt(1, id);
+                        ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+                        ps.setString(3, "Prev. " + kmDelBloque + " km");
+                        ps.setString(4, "Auto. kilometraje");
+                        ps.executeUpdate();
                     }
-                } else {
-                    // si el km baja de 5000 (por ejemplo al resetear), permito que la alerta vuelva a aparecer
-                    alertaMantenimientoMostrada.put(id, false);
+
+                    // inserta tambien en alertas_mantenimiento
+                    String sqlAlerta = "INSERT INTO alertas_mantenimiento (id_camion, kilometraje) VALUES (?, ?)";
+
+                    try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sqlAlerta)) {
+                        ps.setInt(1, id);
+                        ps.setInt(2, kmDelBloque);
+                        ps.executeUpdate();
+                    }
+
+                    // muestra la notificacion al usuario
+                    JOptionPane.showMessageDialog(null,
+                            "Camion " + c.getPatente() + " alcanzo " + kmDelBloque + " km.\nSe creo un registro de mantenimiento preventivo.",
+                            "Mantenimiento requerido",
+                            JOptionPane.WARNING_MESSAGE);
+
+                    // actualiza el bloque registrado para este camion
+                    bloqueMantenimientoMap.put(id, bloqueActual);
+
+                    // refresca la tabla de mantenimiento
+                    cargarTablaMantenimiento();
                 }
             }
         } catch (Exception ex) {
@@ -1764,7 +1707,10 @@ public class CamionVisual extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamionVisual().setVisible(true);
+                CamionVisual ventana = new CamionVisual();
+                // bloquea el tamaño de la ventana para que no se pueda redimensionar
+                ventana.setResizable(false);
+                ventana.setVisible(true);
             }
         });
     }
