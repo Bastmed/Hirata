@@ -596,6 +596,7 @@ public class CamionVisual extends javax.swing.JFrame {
     private java.util.Map<Integer, Boolean> alertaMostrada = new java.util.HashMap<>();
     private java.util.Map<Integer, Integer> kilometrajeMap = new java.util.HashMap<>();
     private java.util.Map<Integer, Boolean> alertaGasolinaMostrada = new java.util.HashMap<>();
+    private java.util.Map<Integer, Boolean> alertaMantenimientoMostrada = new java.util.HashMap<>();
 
 // Cargar tabla de conductores con nombre y RUT
     protected CamionDao crearCamionDao() {
@@ -803,19 +804,17 @@ public class CamionVisual extends javax.swing.JFrame {
                     alertaMostrada.put(id, false);
                 }
 
-                // alerta solo una vez hasta que se reinicie pero para gasolina
+                // reviso si la alerta de gasolina ya fue mostrada para este camion
                 boolean yaMostradaB = alertaGasolinaMostrada.getOrDefault(id, false);
 
+                // si la gasolina llego a cero y todavia no mostre la alerta, la muestro
                 if (gasolina <= 0) {
                     if (!yaMostradaB) {
                         JOptionPane.showMessageDialog(this,
-                                "El camion con patente " + c.getPatente() + ": " + "Se quedo sin gasolina");
+                                "El camion con patente " + c.getPatente() + " se quedo sin gasolina");
+                        // marco que ya la mostre para no repetirla
                         alertaGasolinaMostrada.put(id, true);
-
-                    } else {
-                        alertaGasolinaMostrada.put(id, false);
                     }
-
                 }
 
                 modelo.addRow(new Object[]{
@@ -861,31 +860,41 @@ public class CamionVisual extends javax.swing.JFrame {
 
             for (RegisCamion c : lista) {
                 int km = c.getKilometraje();
-                System.out.println("Camión " + c.getPatente() + " tiene " + km + " km");
+                int id = c.getIdCamion();
+
+                // reviso si ya mostre la alerta de mantenimiento para este camion
+                boolean yaMostrada = alertaMantenimientoMostrada.getOrDefault(id, false);
 
                 if (km >= 5000) {
-                    // Inserta alerta simple
-                    String sql = "INSERT INTO alertas_mantenimiento (id_camion, kilometraje) VALUES (?, ?)";
+                    if (!yaMostrada) {
+                        // inserto la alerta en la base de datos solo una vez
+                        String sql = "INSERT INTO alertas_mantenimiento (id_camion, kilometraje) VALUES (?, ?)";
 
-                    try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
-                        ps.setInt(1, c.getIdCamion());
-                        ps.setInt(2, km);
-                        ps.executeUpdate();
+                        try (Connection con = Conexion.conectarDb(); PreparedStatement ps = con.prepareStatement(sql)) {
+                            ps.setInt(1, id);
+                            ps.setInt(2, km);
+                            ps.executeUpdate();
+                        }
+
+                        // muestro la alerta visual solo una vez
+                        JOptionPane.showMessageDialog(null,
+                                "Camion " + c.getPatente()
+                                + " tiene " + km + " km.\nMantenimiento requerido.",
+                                "Alerta",
+                                JOptionPane.WARNING_MESSAGE);
+
+                        // marco que ya mostre la alerta para no repetirla
+                        alertaMantenimientoMostrada.put(id, true);
                     }
-
-                    // Mostrar alerta visual
-                    JOptionPane.showMessageDialog(null,
-                            "Camión " + c.getPatente()
-                            + " tiene " + km + " km.\nMantenimiento requerido.",
-                            "Alerta",
-                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    // si el km baja de 5000 (por ejemplo al resetear), permito que la alerta vuelva a aparecer
+                    alertaMantenimientoMostrada.put(id, false);
                 }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Error:\n" + ex.getMessage());
         }
-
     }
 
 
