@@ -174,6 +174,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="btnSalirConduc">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/salir.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
                       <Events>
@@ -181,38 +184,59 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="82" y="340" width="70" height="-1"/>
+                          <AbsoluteConstraints x="82" y="340" width="100" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnRegistrarConductor">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/Agregar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Registrar"/>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[110, 31]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[110, 31]"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarConductorActionPerformed"/>
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="20" y="180" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="20" y="180" width="110" height="30"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnEliminarConductor">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/eliminar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Eliminar"/>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[110, 31]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[110, 31]"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarConductorActionPerformed"/>
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="80" y="220" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="80" y="230" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnActualizarConductor">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/actualizar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
                       <Events>
@@ -220,7 +244,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="130" y="180" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="140" y="180" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -343,6 +367,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="btnregistrarCam">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/Agregar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Registrar"/>
                       </Properties>
                       <Events>
@@ -350,7 +377,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="50" y="300" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="20" y="299" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -438,6 +465,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnactualizarCam">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/actualizar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
                       <Events>
@@ -445,12 +475,15 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="140" y="300" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="150" y="300" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btneliminarCam">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/eliminar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                       <Events>
@@ -458,12 +491,15 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="90" y="340" width="80" height="-1"/>
+                          <AbsoluteConstraints x="80" y="350" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnSalir">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/salir.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
                       <Events>
@@ -471,7 +507,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="90" y="410" width="80" height="-1"/>
+                          <AbsoluteConstraints x="90" y="430" width="90" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -611,6 +647,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="btnRegistrarKm">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/actualizar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
                       <Events>
@@ -618,7 +657,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="90" y="250" width="90" height="-1"/>
+                          <AbsoluteConstraints x="80" y="250" width="120" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -679,6 +718,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnSalirKm">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/salir.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
                       <Events>
@@ -838,6 +880,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="btnSalirMan">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/salir.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
                       <Events>
@@ -851,6 +896,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnActualizarMan">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/actualizar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
                       <Events>
@@ -858,7 +906,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="131" y="425" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="160" y="430" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -926,6 +974,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnAgregarMan">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/Agregar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Agregar"/>
                       </Properties>
                       <Events>
@@ -933,12 +984,15 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="78" y="384" width="82" height="-1"/>
+                          <AbsoluteConstraints x="90" y="380" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnEliminarMant">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Img/eliminar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                       <Events>
@@ -946,7 +1000,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="16" y="425" width="82" height="-1"/>
+                          <AbsoluteConstraints x="20" y="430" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>

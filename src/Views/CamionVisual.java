@@ -164,37 +164,45 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jLayeredPane1.add(JSpaneConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 740, 460));
 
+        btnSalirConduc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salir.png"))); // NOI18N
         btnSalirConduc.setText("Salir");
         btnSalirConduc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirConducActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnSalirConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 340, 70, -1));
+        jLayeredPane1.add(btnSalirConduc, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 340, 100, -1));
 
+        btnRegistrarConductor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Agregar.png"))); // NOI18N
         btnRegistrarConductor.setText("Registrar");
+        btnRegistrarConductor.setMaximumSize(new java.awt.Dimension(110, 31));
+        btnRegistrarConductor.setMinimumSize(new java.awt.Dimension(110, 31));
         btnRegistrarConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarConductorActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnRegistrarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        jLayeredPane1.add(btnRegistrarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 30));
 
+        btnEliminarConductor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarConductor.setText("Eliminar");
+        btnEliminarConductor.setMaximumSize(new java.awt.Dimension(110, 31));
+        btnEliminarConductor.setMinimumSize(new java.awt.Dimension(110, 31));
         btnEliminarConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarConductorActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnEliminarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        jLayeredPane1.add(btnEliminarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
 
+        btnActualizarConductor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         btnActualizarConductor.setText("Actualizar");
         btnActualizarConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarConductorActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(btnActualizarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+        jLayeredPane1.add(btnActualizarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -234,13 +242,14 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jpanelRegistroCam.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 170, -1));
 
+        btnregistrarCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Agregar.png"))); // NOI18N
         btnregistrarCam.setText("Registrar");
         btnregistrarCam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistrarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        jpanelRegistroCam.add(btnregistrarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 299, 110, -1));
 
         jScrollPane13.setViewportView(txtPatenteCam);
 
@@ -265,29 +274,32 @@ public class CamionVisual extends javax.swing.JFrame {
         lblpatenteCam.setText("Patente:");
         jpanelRegistroCam.add(lblpatenteCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
+        btnactualizarCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         btnactualizarCam.setText("Actualizar");
         btnactualizarCam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnactualizarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
+        jpanelRegistroCam.add(btnactualizarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
 
+        btneliminarCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btneliminarCam.setText("Eliminar");
         btneliminarCam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btneliminarCamActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 80, -1));
+        jpanelRegistroCam.add(btneliminarCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 110, -1));
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salir.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 80, -1));
+        jpanelRegistroCam.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 90, -1));
 
         comboConductores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboConductores.addActionListener(new java.awt.event.ActionListener() {
@@ -334,13 +346,14 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jLayeredPane3.add(JSpaneKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 730, 480));
 
+        btnRegistrarKm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         btnRegistrarKm.setText("Actualizar");
         btnRegistrarKm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarKmActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 90, -1));
+        jLayeredPane3.add(btnRegistrarKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 120, -1));
 
         lblKilometraje.setText("Kilometraje:");
         jLayeredPane3.add(lblKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
@@ -357,6 +370,7 @@ public class CamionVisual extends javax.swing.JFrame {
         lblPatenteKm.setText("Patente:");
         jLayeredPane3.add(lblPatenteKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
+        btnSalirKm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salir.png"))); // NOI18N
         btnSalirKm.setText("Salir");
         btnSalirKm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,6 +425,7 @@ public class CamionVisual extends javax.swing.JFrame {
 
         jLayeredPane4.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 190, 46));
 
+        btnSalirMan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salir.png"))); // NOI18N
         btnSalirMan.setText("Salir");
         btnSalirMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,13 +434,14 @@ public class CamionVisual extends javax.swing.JFrame {
         });
         jLayeredPane4.add(btnSalirMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 490, 82, -1));
 
+        btnActualizarMan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         btnActualizarMan.setText("Actualizar");
         btnActualizarMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarManActionPerformed(evt);
             }
         });
-        jLayeredPane4.add(btnActualizarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 425, -1, -1));
+        jLayeredPane4.add(btnActualizarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, -1, -1));
 
         jTableMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -455,21 +471,23 @@ public class CamionVisual extends javax.swing.JFrame {
         jLayeredPane4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 155, -1));
         jLayeredPane4.add(jDateMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 144, -1));
 
+        btnAgregarMan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Agregar.png"))); // NOI18N
         btnAgregarMan.setText("Agregar");
         btnAgregarMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarManActionPerformed(evt);
             }
         });
-        jLayeredPane4.add(btnAgregarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 384, 82, -1));
+        jLayeredPane4.add(btnAgregarMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 110, -1));
 
+        btnEliminarMant.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarMant.setText("Eliminar");
         btnEliminarMant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarMantActionPerformed(evt);
             }
         });
-        jLayeredPane4.add(btnEliminarMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 425, 82, -1));
+        jLayeredPane4.add(btnEliminarMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 110, -1));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
